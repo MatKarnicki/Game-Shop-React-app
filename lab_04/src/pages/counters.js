@@ -28,7 +28,7 @@ const counterReducer = (state, action) => {
                         };
                     }
                     return counter;
-            });
+                });
             }
             case 'DECREMENT': {
                 return state.map(counter => {
@@ -39,8 +39,7 @@ const counterReducer = (state, action) => {
                         };
                     }
                     return counter;
-            });
-
+                });
             }
             case 'NEWCOUNTER': {
                 return [...state, {value: 0, counterName: action.payload.counterName, changeValue:1}];
@@ -92,9 +91,9 @@ const counterReducer = (state, action) => {
 
 const store = createStore(counterReducer);
 
-// store.subscribe(() => {
-//     console.log(store.getState());
-// });
+store.subscribe(() => {
+    console.log(store.getState());
+});
 
 
 store.dispatch({
