@@ -5,6 +5,9 @@ import todoReducer from "./todoReducer";
 
 const ToDoItems = () => {
     const [state, dispatch] = useReducer(todoReducer, []);
+    const finishTask = (taskText) => {
+        dispatch({type: 'DONE', payload: {text: taskText}});
+    };
     const handleAddTask = (taskText, taskDate, taskTime) => {
         dispatch({ type: 'ADDTODO', payload: {text:`${taskText}`, date: `${taskDate}`, status: 'TODO'}});
         console.log(state);
@@ -15,13 +18,20 @@ const ToDoItems = () => {
     const handleSearch = (search) => {
         dispatch({type: "SEARCH", payload: {searchQuery: search}});
     };
+    const handleSubmit = (e, taskText) => {
+        e.preventDefault();
+        finishTask(taskText);
+    };
     return (
-    <>
-    <h1>TO-DO</h1>
-    <ul>
-        {state.map((task, i) => (<li key={i}>{`${task.text} ${task.date} ${task.status}`}</li>))}
-    </ul>
-    <ToDoForm handleAddTask={handleAddTask} handleSearch={handleSearch}></ToDoForm>
+        <>
+        <h1>TO-DO</h1>
+        {state.map((task, i) => (
+            <form key={i} onSubmit={(e) => handleSubmit(e, task.text)}>
+                <p>{`${task.text} ${task.date} ${task.status}`}</p>
+                <input type="submit" value="Zakoncz zadanie" />
+            </form>
+        ))}
+        <ToDoForm handleAddTask={handleAddTask} handleSearch={handleSearch} />
     </>
     );
 };
