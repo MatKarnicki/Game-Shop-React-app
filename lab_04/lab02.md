@@ -7,6 +7,6 @@ W rozwiązaniu należ opracować i zamiplementować (bez wykorzystywania jakichk
 
 **Zadanie 2.** Zaimplementuj rozwiązania z Zadania 1. do aplikacji wielolicznikowej w projekcie React/Next. Pomocne materiały: [Extracting State Logic into a Reducer](https://react.dev/learn/extracting-state-logic-into-a-reducer)
 
-**Zadanie 3.** Zaproponuj prostą aplikację typu lista to-do. Razem z datą realizacja zadania niech użytkownik wybiera czas, do którego zadanie powinno zostać wykonane. Po upływie czasu na realizację, stan zadania zmienia się na Expired (którego nie możemy zmienić). Dodaj również pole wyszukiwania po treści oraz po statusie (Done, Todo, Expired)
+**Zadanie 3.** Zaproponuj prostą aplikację typu lista to-do. Razem z datą realizacja zadania niech użytkownik wybiera czas, do którego zadanie powinno zostać wykonane. Po upływie czasu na realizację, stan zadania zmienia się na Expired (którego nie możemy zmienić). Dodaj również pole wyszukiwania po treści oraz po statusie (Done, Todo, Expired) //set time out, reducer do timeoutu done expired todo
 
 
