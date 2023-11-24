@@ -54,7 +54,6 @@ const counterReducer = (state, action) => {
                     if(counter.counterName === action.payload.counterName){
                         return {
                             ...counter,
-                            value: counter.value,
                             changeValue: action.payload.changeValue
                         };
                     }
@@ -65,7 +64,6 @@ const counterReducer = (state, action) => {
                 return state.map(counter => {
                     if(counter.counterName === action.payload.counterName){
                         console.log(`${counter.counterName}: ${counter.value}` );
-                        return counter;
                     }
                     return counter;
                 });

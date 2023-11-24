@@ -5,7 +5,7 @@ const FormToDoMesseges = ({errorList}) => {
                 <p key={i}>{error}</p>
             ))}
         </div>
-    )
-}
+    );
+};
 
-export default FormToDoMesseges
+export default FormToDoMesseges;

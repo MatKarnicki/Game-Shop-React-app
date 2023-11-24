@@ -25,12 +25,14 @@ const ToDoItems = () => {
     return (
         <>
         <h1>TO-DO</h1>
-        {state.map((task, i) => (
+        {state.filter((task) => task.visibility === 1).map((task, i) =>
+            (
             <form key={i} onSubmit={(e) => handleSubmit(e, task.text)}>
                 <p>{`${task.text} ${task.date} ${task.status}`}</p>
                 <input type="submit" value="Zakoncz zadanie" />
             </form>
-        ))}
+        )
+        )}
         <ToDoForm handleAddTask={handleAddTask} handleSearch={handleSearch} />
     </>
     );

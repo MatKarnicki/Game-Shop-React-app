@@ -12,7 +12,7 @@ const todoReducer = (state, action) => {
           });
         }
         case 'ADDTODO': {
-                return [...state, {text:`${action.payload.text}`, date: `${action.payload.date}`, status: 'TODO'}];
+                return [...state, {text:`${action.payload.text}`, date: `${action.payload.date}`, status: 'TODO', visibility: 1}];
         }
         case 'DONE': {
             return state.map(task => {
@@ -27,8 +27,15 @@ const todoReducer = (state, action) => {
         }
         case 'SEARCH': {
             const state_copy = state;
-            return state_copy.filter(searchResult => {
-                return searchResult.status === action.payload.searchQuery;
+            return state_copy.map((todo) => {
+                if(todo.status !== action.payload.searchQuery){
+                    return {
+                        ...todo,
+                        visibility: 0
+                    };
+                } else {
+                    return todo;
+                }
             });
     }
         default: {
