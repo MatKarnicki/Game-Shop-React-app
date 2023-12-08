@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import { GameContext } from "./GameContext";
+import { useGame } from "./GameContext";
 
 const GameList = ({selectGame}) => {
-    const games = useContext(GameContext);
+    const games = useGame();
 
     return (
         <>

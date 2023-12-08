@@ -1,5 +1,5 @@
-import {useState, useContext} from "react";
-import { DispatchContext } from "./GameContext";
+import {useState} from "react";
+import { useGameDispatch } from "./GameContext";
 
 const GameForm = ({selectedGame}) => {
 
@@ -8,7 +8,7 @@ const GameForm = ({selectedGame}) => {
     const [gamePlatform, setGamePlatform] = useState("unknown");
     const [gameScore, setGameScore] = useState("unknown");
     const [gameFinished, setGameFinished] = useState(false);
-    const dispatch = useContext(DispatchContext);
+    const dispatch = useGameDispatch();
 
 
     return (
@@ -41,7 +41,7 @@ const GameForm = ({selectedGame}) => {
                     year : gameYear,
                     platform: gamePlatform,
                     score: gameScore,
-                    finished: gameFinished
+                    finished: selectedGame.finished
                 }
             }) }>MODIFY CURRENT GAME</button>
             <button onClick={() => dispatch({

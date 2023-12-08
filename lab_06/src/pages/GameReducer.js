@@ -1,29 +1,4 @@
-import {useReducer, useState} from "react";
-import GameList from "./GameList";
-import GameDetails from "./GameDetails";
-import { DispatchContext, GameContext } from "./GameContext";
-
-
-const Game = () => {
-
-const initialGames = [
-    {
-        name: "Bloodborne",
-        yearOfRelease: 2013,
-        platform: "Playstation",
-        myScore: 10,
-        finished : true
-    },
-    {
-        name: "Hi-Fi Rush",
-        yearOfRelease: 2023,
-        platform: "PC/XBOX",
-        myScore: 8,
-        finished: true
-    }
-];
-
-const gameReducer = (state, action) => {
+export function gameReducer (state, action) {
     switch (action.type) {
         case 'ADD_GAME': {
             return [...state,
@@ -69,24 +44,4 @@ const gameReducer = (state, action) => {
         default:
             return state;
     }
-};
-const [games, dispatch] = useReducer(gameReducer, initialGames);
-const [selectedGame, setSelectedGame] = useState(null);
-
-return (
-    <>
-        <GameContext.Provider value={games}>
-            <DispatchContext.Provider value={dispatch}>
-                <div>
-                    <GameList selectGame={setSelectedGame} games={games}/>
-                    {selectedGame ? <GameDetails game={selectedGame}/> :
-                        <span>No Game selected</span>}
-                </div>
-            </DispatchContext.Provider>
-        </GameContext.Provider>
-    </>
-);
-};
-
-export default Game;
-
+}
