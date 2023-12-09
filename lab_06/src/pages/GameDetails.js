@@ -1,11 +1,11 @@
-import GameForm from "./GameForm";
+import GameFormFormik2 from "./GameFormFormik";
 
 const GameDetails = ({game}) => {
 
     return (
         <>
             <div>Selected game: {game.name} </div>
-            <GameForm selectedGame={game}/>
+            <GameFormFormik2 selectedGame={game}/>
         </>
     );
 };

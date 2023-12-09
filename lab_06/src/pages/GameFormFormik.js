@@ -1,124 +1,134 @@
-import {Formik} from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import { useGameDispatch } from "./GameContext";
 
-const GameFormFormik = ({selectedGame}) => {
+const GameFormFormik2 = ({ selectedGame }) => {
+  const dispatch = useGameDispatch();
 
-    const dispatch = useGameDispatch();
+  const initialValues = {
+    gameName: "",
+    gameYear: "",
+    gamePlatform: "",
+    myScore: "",
+    gameFinished: "",
+  };
+  const validate = (values) => {
+    const errors = {};
+    if (!values.gameName) {
+      errors.gameName = "Game name is required";
+    }
+    if (!/^[0-9]+$/.test(values.gameYear)) {
+      errors.gameYear = "Use only numbers";
+    }
+    if (!values.gamePlatform) {
+      errors.gamePlatform = "Game platform is required";
+    }
+    if (!/^[0-9]+$/.test(values.myScore)) {
+      errors.myScore = "Use only numbers";
+    }
+    return errors;
+  };
 
-
-    return (
-        <>
-        <Formik
-            initialValues={{
-                gameName : 'unknown',
-                gameYear : 1970,
-                gamePlatform : 'unknown',
-                gameScore : 0,
-                gameFinished : false
-            }}
-
-            validate={values => {
-                const errors = {};
-
-                if (!values.gameName) {
-                    errors.gameName = 'Game name is required';
-                } else if (!/^[0-9]+$/.test(values.gameYear)) {
-                    errors.fruitColor = 'Use only numbers';
-                } else if (!values.gamePlatform) {
-                    errors.fruitColor = 'Game platform is required';
-                } else if (!/^[0-9]+$/.test(values.gameScore)) {
-                    errors.fruitColor = 'Use only numbers';
-                }
-                return errors;
-            }}
-
-            onSubmit={(values, {isSubmitting}) => {
-                console.log("Values:", values);
+  return (
+    <Formik initialValues={initialValues} validate={validate}>
+      {({ values }) => (
+        <Form>
+          <div>
+            <label htmlFor="gameName">Name</label>
+            <Field id="gameName" type="text" name="gameName"></Field>
+            <ErrorMessage name="gameName"></ErrorMessage>
+          </div>
+          <div>
+            <label htmlFor="gameYear">Year of release</label>
+            <Field id="gameYear" type="number" name="gameYear"></Field>
+            <ErrorMessage name="gameYear"></ErrorMessage>
+          </div>
+          <div>
+            <label htmlFor="gamePlatform">Platform</label>
+            <Field id="gamePlatform" type="text" name="gamePlatform"></Field>
+            <ErrorMessage name="gamePlatform"></ErrorMessage>
+          </div>
+          <div>
+            <label htmlFor="myScore">Score</label>
+            <Field id="myScore" type="number" name="myScore"></Field>
+            <ErrorMessage name="myScore"></ErrorMessage>
+          </div>
+          <div>
+            <label htmlFor="gameFinished">Finished</label>
+            <Field
+              id="gameFinished"
+              type="checkbox"
+              name="gameFinished"
+            ></Field>
+            <ErrorMessage name="gameFinished"></ErrorMessage>
+          </div>
+          <div>
+            <button
+              type="submit"
+              name="finish"
+              onClick={() => {
+                console.log(values);
                 dispatch({
-                    type: 'MODIFY_FRUIT',
-                    payload: {
-                        color: values.fruitColor,
-                        name: values.fruitName
-                    }
-                });
-            }}>
-            {({
-                  values,
-                  errors,
-                  touched,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                  isSubmitting
-                  /*....*/
-
-              }) => (
-                <form onSubmit={handleSubmit}>
-                        <input type='text' gameName='fruitName' onChange={handleChange} onBlur={handleBlur}
-                               value={values.gameName}/>
-                        {errors.gameName && touched.gameName && errors.gameName}
-                        <br/>
-                        <input type='number' name='gameYear' onChange={handleChange} onBlur={handleBlur}
-                               value={values.gameYear}/>
-                        {errors.gameYear && touched.gameYear && errors.gameYear}
-                        <br/>
-                        <input type='text' name='gamePlatform' onChange={handleChange} onBlur={handleBlur}
-                               value={values.gamePlatform}/>
-                        {errors.gamePlatform && touched.gamePlatform && errors.gamePlatform}
-                        <br/>
-                        <input type='number' name='gameScore' onChange={handleChange} onBlur={handleBlur}
-                               value={values.gameScore}/>
-                        {errors.gameScore && touched.gameScore && errors.gameScore}
-                        <br/>
-                        <input type='checkbox' name='gameFinished' onChange={handleChange} onBlur={handleBlur}
-                               value={values.gameFinished}/>
-                        {errors.gameFinished && touched.gameFinished && errors.gameFinished}
-                        <br/>
-                        <button type='submit' disabled={isSubmitting}> OK</button>
-                    </form>
-                )}
-
-        </Formik>
-            {/* Name: <input type="text" onChange={(e) => setGameName(e.target.value)}/> <br />
-            YearOfRelease: <input type="number" onChange={(e) => setGameYear(e.target.value)}/> <br />
-            Platform: <input type="text" onChange={(e) => setGamePlatform(e.target.value)}/> <br />
-            MyScore: <input type="number" onChange={(e) => setGameScore(e.target.value)}/> <br />
-            Finished: <input type="checkbox" onChange={(e) => setGameFinished(e.target.checked)}/> <br />
-            <button onClick={() => dispatch({
-                type: 'FINISH_GAME',
-                payload: {
-                    name: selectedGame.name
-                }
-            }) }>FINISH SELECTED GAME</button>
-            <button onClick={() => dispatch({
-                type: 'ADD_GAME',
-                payload: {
-                    name: gameName,
-                    year : gameYear,
-                    platform: gamePlatform,
-                    score: gameScore,
-                    finished: gameFinished
-                }
-            }) }>ADD NEW GAME</button>
-            <button onClick={() => dispatch({
-                type: 'MODIFY_GAME',
-                payload: {
+                  type: "FINISH_GAME",
+                  payload: {
                     name: selectedGame.name,
-                    year : gameYear,
-                    platform: gamePlatform,
-                    score: gameScore,
-                    finished: selectedGame.finished
-                }
-            }) }>MODIFY CURRENT GAME</button>
-            <button onClick={() => dispatch({
-                type: 'DELETE_GAME',
-                payload: {
-                    name: selectedGame.name
-                }
-            }) }>DELETE CURRENT GAME</button>
-*/}
-        </>
-    );
+                  },
+                });
+              }}
+            >
+              FINISH SELECTED GAME
+            </button>
+            <button
+              name="add"
+              onClick={() =>
+                dispatch({
+                  type: "ADD_GAME",
+                  payload: {
+                    name: values.gameName,
+                    year: values.gameYear,
+                    platform: values.gamePlatform,
+                    score: values.myScore,
+                    finished: values.gameFinished,
+                  },
+                })
+              }
+            >
+              ADD NEW GAME
+            </button>
+            <button
+              name="modify"
+              onClick={() =>
+                dispatch({
+                  type: "MODIFY_GAME",
+                  payload: {
+                    name: selectedGame.name,
+                    year: values.gameYear,
+                    platform: values.gamePlatform,
+                    score: values.myScore,
+                    finished: selectedGame.finished,
+                  },
+                })
+              }
+            >
+              MODIFY CURRENT GAME
+            </button>
+            <button
+              name="delete"
+              onClick={() =>
+                dispatch({
+                  type: "DELETE_GAME",
+                  payload: {
+                    name: selectedGame.name,
+                  },
+                })
+              }
+            >
+              DELETE CURRENT GAME
+            </button>
+          </div>
+        </Form>
+      )}
+    </Formik>
+  );
 };
 
-export default GameFormFormik;
+export default GameFormFormik2;
