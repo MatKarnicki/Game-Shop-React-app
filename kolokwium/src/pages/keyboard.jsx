@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { KeyboardProvider } from "./keyboardContext";
 import { KeyboardList } from "./keyboardList";
-
+import { keyboardForm } from ".keyboardForm";
 const Keyboard = () => {
   const [selectedKeyboard, setSelectedKeyboard] = useState(null);
 
@@ -13,6 +13,7 @@ const Keyboard = () => {
             setSelectedKeyboard={setSelectedKeyboard}
           ></KeyboardList>
         </div>
+        <keyboardForm></keyboardForm>
       </KeyboardProvider>
     </>
   );
