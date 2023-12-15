@@ -1,16 +1,14 @@
 import { useKeyboard } from "./keyboardContext";
-const keyboardList = ({ setSelectedKeyboards }) => {
+
+const KeyboardList = ({ setSelectedKeyboard }) => {
   const keyboards = useKeyboard();
 
   return (
     <>
       <ul>
         {keyboards.map((keyboard) => (
-          <li
-            key={keyboard.name}
-            onClick={() => setSelectedKeyboards(keyboard)}
-          >
-            {keyboard.name}, {keyboard.isGamingKeyboard},{" "}
+          <li key={keyboard.name} onClick={() => setSelectedKeyboard(keyboard)}>
+            {keyboard.name}, {keyboard.isGamingKeyboard.toString()},
             {keyboard.dateOfProduction} {keyboard.price} {keyboard.color}
           </li>
         ))}
@@ -18,3 +16,5 @@ const keyboardList = ({ setSelectedKeyboards }) => {
     </>
   );
 };
+
+export default KeyboardList;
