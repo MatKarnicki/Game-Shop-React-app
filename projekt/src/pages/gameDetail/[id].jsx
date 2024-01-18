@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const GameDetail = () => {
   const router = useRouter();
@@ -16,10 +17,23 @@ const GameDetail = () => {
         console.error(err);
       }
     };
+
     fetchDetail();
   }, [router.query.id]);
   //wyselekcjonowac dane
-  return <p>Post: {JSON.stringify(gameDetail)}</p>;
+  return (
+    <div>
+      <ul>
+        {gameDetail?.developers.map((developer) => (
+          <li key={developer.id}>
+            <Link href={`/developerDetail/${developer.id}`}>
+              {developer.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default GameDetail;
