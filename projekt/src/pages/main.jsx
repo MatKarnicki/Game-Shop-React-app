@@ -13,7 +13,6 @@ export default function Home() {
       );
       const result = await response.json();
       setData(result.results);
-      console.log(result);
       setMaxPages(Math.ceil(result.count / pageSize));
     } catch (error) {
       console.error("Error fetching data:", error);
