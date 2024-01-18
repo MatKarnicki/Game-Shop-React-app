@@ -51,7 +51,8 @@ Wymagania:
    1. Powinna być możliwość przeglądania danych w strukturze master - detail (lista wszystkich elementów, po naciśnięciu na dany element pokazują się dane szczegółowe
    1. W widoku prezentującym dziedzinę powinny wyświetlać się dane z dziedzin pobocznych. Po kliknięciu na dane w elemencie powinno nastąpić przekierowanie na stronę zawierającą szczegóły na jego temat
    1. W widoku przezentującym dziedziny poboczne i powiązane powinny wyświetlać się statystyki związane z powiązaniami.
-   1. Widok szczegółowy powinien umożliwić edycję i usunięcie widocznego elementu po naciśnięciu odpowiednich przycisków # PODPYTAC
+   1. Widok szczegółowy powinien umożliwić edycję i usunięcie widocznego elementu po naciśnięciu odpowiednich przycisków
+   # PODPYTAC
    1. Na liście wszystkich danych powinna być możliwość dodania nowego elementu po naciśnięciu przycisku. [DST]
 1. Dodawanie i edycja danych
    1. Dodawanie i edycja danych powinna się znajdować pod odpowiednimi route'ami [DST]
@@ -59,7 +60,9 @@ Wymagania:
    1. Powinien istnieć wspólny formularz dla operacji dodawania i edycji.
    1. Formularz powinien spełniać wymagania stawiane przez backend (np. odpowiednie typy danych). [DST]
    1. Wymagana jest odpowiednia walidacja danych [DST]
-   1. W widoku elementu z dziedziny powinna być możliwość zmiany elementów z dziedziny głównej [DST] i dodania/usunięcia elementów powiązanych. [BDB]
+   1. W widoku elementu z dziedziny powinna być możliwość zmiany elementów z dziedziny głównej [DST]
+   ## ?????
+   i dodania/usunięcia elementów powiązanych. [BDB]
 1. Statystyki
    1. Powinna być możliwość przeglądania "ciekawych" statystyk w aplikacji (np. elementy z największą/najmniejszą liczbą powiązań, statystyki liczbowe itp.). Statystyki powinny być umieszczone pod osobnym routem i zaprezentowane w czytelny sposób. [BDB]
    1. Statystyki powinny być wizualizowane za pomocą wykresów (z użyciem dowolnej wtyczki) [BDB]

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
+import Image from "next/image";
+import GameDetailLists from "./gameDetailLists";
 
 const GameDetail = () => {
   const router = useRouter();
@@ -20,18 +21,21 @@ const GameDetail = () => {
 
     fetchDetail();
   }, [router.query.id]);
-  //wyselekcjonowac dane
   return (
     <div>
-      <ul>
-        {gameDetail?.developers.map((developer) => (
-          <li key={developer.id}>
-            <Link href={`/developerDetail/${developer.id}`}>
-              {developer.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <h1>{gameDetail?.name}</h1>
+      <Image
+        src={gameDetail?.background_image}
+        alt={gameDetail?.name}
+        width={800}
+        height={400}
+      ></Image>
+
+      <h3>{gameDetail?.tba ? "TBA " : `Released: ${gameDetail?.released}`}</h3>
+      <h2>Metacritic Score: {gameDetail?.metacritic}</h2>
+      <GameDetailLists gameDetail={gameDetail}></GameDetailLists>
+      <h2>Description</h2>
+      <h4>{gameDetail?.description_raw}</h4>
     </div>
   );
 };
