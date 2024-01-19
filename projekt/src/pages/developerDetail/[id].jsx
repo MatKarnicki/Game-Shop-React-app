@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import GameList from "../gameList";
+import GameGrid from "../gameGrid";
 const DeveloperDetail = () => {
   const router = useRouter();
   const [developerDetail, setDeveloperDetail] = useState();
@@ -52,20 +52,19 @@ const DeveloperDetail = () => {
       ></Image>
       {console.log(developerGames)}
       <h3>{`Amount of games: ${developerDetail?.games_count}`}</h3>
-      <h3 onClick={() => handleDeveloperGames()}>
-        <br />
+      <button onClick={() => handleDeveloperGames()}>
         {showGames ? "Collapse the list of games" : "Expand the list of games"}
-        <br />
-        <br />
-        {showGames && (
-          <GameList
-            data={developerGames.results}
-            maxPages={Math.ceil(developerGames?.count / 20)}
-            setPage={setPage}
-            pageNumber={pageNumber}
-          ></GameList>
-        )}
-      </h3>
+      </button>
+      <br />
+      <br />
+      {showGames && (
+        <GameGrid
+          data={developerGames.results}
+          maxPages={Math.ceil(developerGames?.count / 20)}
+          setPage={setPage}
+          pageNumber={pageNumber}
+        ></GameGrid>
+      )}
     </div>
   );
 };

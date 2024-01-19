@@ -17,6 +17,11 @@ export default function GameList({ data, pageNumber, setPage, maxPages }) {
           </li>
         ))}
       </ul>
+      <PageHandler
+        pageNumber={pageNumber}
+        setPage={setPage}
+        maxPages={maxPages}
+      ></PageHandler>
     </>
   );
 }
