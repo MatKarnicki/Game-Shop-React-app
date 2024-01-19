@@ -10,7 +10,7 @@ export default function GameDetailLists({ gameDetail }) {
       </ul>
 
       <ul style={{ marginRight: "20px" }}>
-        <h2>Gatunki</h2>
+        <h2>Genres</h2>
         {gameDetail?.genres.map((genre) => (
           <li key={genre.name}>{genre.name}</li>
         ))}
