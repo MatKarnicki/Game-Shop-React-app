@@ -9,7 +9,6 @@ const GameList = () => {
   useEffect(() => setGameList(games), [games]);
   return (
     <div>
-      <button onClick={() => setGameList(games)}>Original Layout</button>
       <GameFilterMenu setGameList={setGameList} />
       <ul style={{ listStyleType: "none" }}>
         {gameList?.map((game) => (
