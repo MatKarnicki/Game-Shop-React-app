@@ -13,7 +13,12 @@ export default function GameElement({ game }) {
         quality={1}
       />
       {/* </Link> */}
-      <h3>released: {game?.released}</h3>
+      <div
+        style={{ width: 400, display: "flex", justifyContent: "space-between" }}
+      >
+        <h3 style={{ marginRight: "10px" }}>Released: {game?.released}</h3>
+        <h3>Score: {game?.metacritic}</h3>
+      </div>
     </>
   );
 }

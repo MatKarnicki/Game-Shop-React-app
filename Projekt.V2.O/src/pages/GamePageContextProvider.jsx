@@ -15,8 +15,14 @@ const GamePageContextProvider = ({ children }) => {
     fetchGameData();
   }, []);
 
+  const sortGamesByName = () => {
+    const sortedGames = [...games].sort((a, b) => a.name.localeCompare(b.name));
+    console.log(sortedGames);
+    return sortedGames;
+  };
+
   return (
-    <GamePageContext.Provider value={{ games, dispatch }}>
+    <GamePageContext.Provider value={{ games, dispatch, sortGamesByName }}>
       {children}
     </GamePageContext.Provider>
   );
