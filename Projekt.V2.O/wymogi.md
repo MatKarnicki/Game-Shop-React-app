@@ -60,8 +60,8 @@ Wymagania:
    1. Powinien istnieć wspólny formularz dla operacji dodawania i edycji.
    1. Formularz powinien spełniać wymagania stawiane przez backend (np. odpowiednie typy danych). [DST]
    1. Wymagana jest odpowiednia walidacja danych [DST]
-   1. W widoku elementu z dziedziny powinna być możliwość zmiany elementów z dziedziny głównej [DST]
-   ## ?????
+   1. W widoku elementu z dziedziny głównej powinna być możliwość zmiany elementów z dziedziny dodatkowej [DST]
+   ## ZMIENIANIE DEVOW
    i dodania/usunięcia elementów powiązanych. [BDB]
 1. Statystyki
    1. Powinna być możliwość przeglądania "ciekawych" statystyk w aplikacji (np. elementy z największą/najmniejszą liczbą powiązań, statystyki liczbowe itp.). Statystyki powinny być umieszczone pod osobnym routem i zaprezentowane w czytelny sposób. [BDB]
