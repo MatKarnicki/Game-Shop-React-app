@@ -5,7 +5,6 @@ import GameFilterMenu from "./GameFilterMenu";
 
 const GameList = () => {
   const { games } = useContext(GamePageContext);
-  console.log(games);
   const [gameList, setGameList] = useState(games);
   useEffect(() => setGameList(games), [games]);
   return (
