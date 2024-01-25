@@ -9,10 +9,8 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <PageContextProvider>
       <Link href="/Home">
-        <Image src={logo} alt="GameVault" width={100} height={100}></Image>
+        <Image src={logo} alt="GameVault" width={150} height={150}></Image>
       </Link>
-      <br />
-      <br />
       <br />
       <Component {...pageProps} />
     </PageContextProvider>

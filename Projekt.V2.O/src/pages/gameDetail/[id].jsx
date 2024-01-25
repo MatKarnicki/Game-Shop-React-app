@@ -2,9 +2,7 @@ import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import GameDetailLists from "./GameDetailLists";
-import Link from "next/link";
 import { PageContext } from "../PageContextProvider";
-import logo from "/public/logo.jpg";
 const GameDetail = () => {
   const { games } = useContext(PageContext);
   const router = useRouter();
@@ -13,7 +11,7 @@ const GameDetail = () => {
   );
 
   return (
-    <div>
+    <div style={{ marginLeft: "40px" }}>
       <h1>{gameDetail?.name}</h1>
       <Image
         src={gameDetail?.background_image}
