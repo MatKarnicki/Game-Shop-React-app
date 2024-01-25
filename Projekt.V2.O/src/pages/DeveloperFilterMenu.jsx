@@ -39,16 +39,16 @@ const DeveloperFilterMenu = ({ setDeveloperList }) => {
           (a, b) => a.my_games_count - b.my_games_count
         )}
       </div>
-      {/* <div>
+      <div>
         {createSortButton(
-          "Release Date ↑",
-          (a, b) => new Date(a.released) - new Date(b.released)
+          "Formed in ↑",
+          (a, b) => new Date(a.formed_in) - new Date(b.formed_in)
         )}
         {createSortButton(
-          "Release Date ↓",
-          (a, b) => new Date(b.released) - new Date(a.released)
+          "Formed in ↓",
+          (a, b) => new Date(b.formed_in) - new Date(a.formed_in)
         )}
-      </div> */}
+      </div>
     </div>
   );
 };

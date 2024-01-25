@@ -30,61 +30,36 @@ const GameDetailComponent = () => {
       <GameDetailLists gameDetail={gameDetail}></GameDetailLists>
       <h2>Description</h2>
       <h4>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum hic,
-        sunt aut neque cumque nisi soluta quis nihil at veniam ducimus provident
-        corrupti doloremque placeat architecto adipisci laudantium enim. Ut
-        asperiores neque ea debitis iusto rerum nihil dolor deserunt, excepturi
-        a voluptatum voluptatibus porro dicta veritatis voluptates, alias aut!
-        Voluptate, eveniet. Quaerat soluta excepturi porro numquam, dolore
-        quibusdam a consectetur? Neque optio numquam dolor dolores officiis
-        blanditiis, quasi reiciendis, ab natus dolore, illo nobis. Quo dolorum,
-        aperiam incidunt magni blanditiis distinctio ipsum necessitatibus
-        cupiditate suscipit, labore itaque aspernatur neque unde nostrum quod
-        dolores autem? Libero rem ipsum obcaecati, fuga, architecto velit ullam
-        possimus vero molestias facere praesentium assumenda pariatur
-        voluptatem, magnam nihil reiciendis. Blanditiis tenetur harum deleniti
-        quam consequatur aliquam iusto magnam quaerat. Consectetur nulla velit
-        pariatur tempora nesciunt fuga repellendus, soluta earum totam dolores
-        adipisci ratione expedita accusamus corporis asperiores, ipsum
-        repudiandae quae odit aliquid! Est eaque voluptatibus beatae distinctio
-        maiores vitae modi aspernatur ipsam facere eligendi nihil similique
-        quae, commodi, optio deleniti blanditiis tempora repudiandae ab fugit
-        facilis nulla id maxime rerum recusandae. Debitis numquam sequi soluta,
-        neque voluptatum vel eligendi aut maxime reiciendis, velit accusamus
-        enim repudiandae ducimus voluptas, libero quo impedit rem delectus
-        animi? Minima totam magnam quas consequatur soluta numquam ea itaque
-        voluptatibus iste sunt distinctio adipisci corrupti ad, tenetur quam
-        repudiandae tempore, sapiente quo dolor nisi, aliquam alias cupiditate?
-        Tempora mollitia unde iure laborum, accusamus illum, itaque illo fuga ad
-        cum repellat doloribus nulla, nisi incidunt temporibus fugit sint nam
-        quod nobis reiciendis non facilis? Minus suscipit, harum labore, sunt
-        expedita aut ut autem quibusdam fugit praesentium ipsam impedit dolorum
-        laudantium optio inventore voluptatum! Facere adipisci, illo
-        reprehenderit dicta in esse animi sapiente sunt nostrum eveniet quod
-        veritatis dolor eaque minus. Corporis suscipit quae explicabo mollitia
-        iste unde exercitationem quia tenetur deserunt voluptates fuga quasi,
-        dolorem earum pariatur in vel quo ipsum esse, fugit reprehenderit! Porro
-        ab facere reprehenderit, laudantium voluptatem aspernatur earum
-        accusamus tenetur alias voluptas quisquam distinctio nostrum ipsam
-        voluptatum sed, placeat odit vel sequi saepe aliquid. Ea nihil error
-        fugiat repellat nisi in aperiam commodi, id veritatis modi nobis veniam
-        laudantium nostrum, doloremque delectus consequatur labore expedita cum
-        eveniet. Assumenda sit quae eligendi, unde reiciendis eum suscipit
-        excepturi! Quidem cumque rem consequatur alias illo repudiandae deserunt
-        nemo nulla voluptatibus sit ad libero assumenda cupiditate mollitia
-        provident quisquam magnam quos, dolore atque! Numquam illo quae
-        necessitatibus quam odio sit consectetur, esse quo dolor quasi dolore
-        eligendi hic cumque vitae, ullam corrupti suscipit? Dicta quia vero at
-        laudantium temporibus repudiandae optio earum? Consectetur illo porro
-        earum eius excepturi, pariatur aut incidunt recusandae consequatur
-        magnam deserunt velit obcaecati minima perspiciatis. Ipsum,
-        exercitationem. Quos quidem, minus doloremque soluta rerum aliquid cum
-        non cupiditate quibusdam ipsa. Atque laudantium tempora quaerat soluta,
-        vel molestiae laborum nam at expedita ipsum obcaecati numquam maxime
-        fugit. Quod dicta iure eaque praesentium odit dolorem tempora blanditiis
-        delectus, nulla placeat asperiores magni ullam sit excepturi dolor, quo
-        eveniet eius magnam assumenda, libero exercitationem ipsum ducimus?
-        Officiis provident qui aliquid accusantium quas nam.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque hic
+        impedit similique facilis accusamus eum. Praesentium tempore maxime
+        delectus omnis in, exercitationem sint atque possimus iste voluptatem
+        necessitatibus. Iure, impedit voluptatem! Veritatis tempora nisi hic
+        deserunt aperiam, voluptas ratione laudantium possimus quo, iure quos
+        doloremque suscipit eveniet magni praesentium voluptatibus consequatur
+        culpa inventore. Autem explicabo quo qui, maiores esse sunt quod
+        officiis beatae culpa recusandae, facilis error mollitia numquam
+        corrupti magni rerum, tempore tenetur et fugiat. Aut dolor nulla eaque
+        mollitia voluptates natus eos! Aliquam mollitia esse dolorem? Atque
+        omnis illum at quia amet, aut similique nostrum id itaque voluptas nemo
+        beatae vero, dolorem laudantium. Corporis voluptatem neque dignissimos
+        dolore debitis veniam iure. Obcaecati quos voluptates possimus, delectus
+        voluptatem culpa minima sed totam quam dolores corrupti nulla nostrum
+        dignissimos pariatur iure ea, soluta tempora eaque. In, animi odio dicta
+        accusantium dolores debitis sed vero optio! Autem dicta libero culpa
+        rem, quia fugiat dignissimos distinctio minima, quisquam inventore ipsum
+        ad cum pariatur vitae fuga eum. Quos quo odio saepe nesciunt dolorum
+        iste in nemo tempore amet distinctio iure, id omnis porro quia sequi
+        veniam! Veniam, ipsa atque consequatur ducimus similique voluptatibus
+        minima exercitationem suscipit quaerat nemo amet quisquam ex dolore iure
+        enim laboriosam doloremque itaque dolorem aperiam accusantium! Libero
+        unde eius magnam nemo eaque qui repudiandae vel laboriosam, vitae natus
+        similique quia enim, perferendis sapiente debitis. Reprehenderit cumque
+        sapiente, consequatur nisi obcaecati voluptas temporibus quis ullam nemo
+        molestias iusto? Atque tempora consectetur reiciendis laudantium,
+        mollitia dolorem corrupti veniam esse rem asperiores placeat adipisci
+        molestias voluptas unde maiores consequuntur recusandae reprehenderit!
+        Dolor quisquam in odio vero laborum culpa rerum ea adipisci officia
+        magni ratione, assumenda aspernatur tempora!
       </h4>
     </div>
   );
