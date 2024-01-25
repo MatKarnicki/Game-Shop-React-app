@@ -1,15 +1,19 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 import GameDetailLists from "./GameDetailLists";
 import { PageContext } from "../PageContextProvider";
+
 const GameDetail = () => {
-  const { games } = useContext(PageContext);
+  const { games, gamesDispatch } = useContext(PageContext);
   const router = useRouter();
   const gameDetail = games.find(
     (game) => game.id === parseInt(router.query.id)
   );
-
+  const handleGameDeletion = () => {
+    gamesDispatch({ type: "DELETE_GAME", payload: { gameID: gameDetail.id } });
+  };
   return (
     <div style={{ marginLeft: "40px" }}>
       <h1>{gameDetail?.name}</h1>
@@ -55,6 +59,11 @@ const GameDetail = () => {
         Dolor quisquam in odio vero laborum culpa rerum ea adipisci officia
         magni ratione, assumenda aspernatur tempora!
       </h4>
+      <Link href="/Home">
+        <button onClick={() => handleGameDeletion()}>
+          Delete Game Forever
+        </button>
+      </Link>
     </div>
   );
 };
