@@ -6,13 +6,17 @@ import GameDetailLists from "./GameDetailLists";
 import { PageContext } from "../PageContextProvider";
 
 const GameDetail = () => {
-  const { games, gamesDispatch } = useContext(PageContext);
+  const { games, gamesDispatch, developersDispatch } = useContext(PageContext);
   const router = useRouter();
   const gameDetail = games.find(
     (game) => game.id === parseInt(router.query.id)
   );
   const handleGameDeletion = () => {
     gamesDispatch({ type: "DELETE_GAME", payload: { gameID: gameDetail.id } });
+    developersDispatch({
+      type: "REMOVE_GAME_FROM_DEVELOPER",
+      payload: { gameid: gameDetail.id, developers: gameDetail.my_developers },
+    });
   };
   return (
     <div style={{ marginLeft: "40px" }}>
