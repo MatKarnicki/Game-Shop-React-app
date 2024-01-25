@@ -3,7 +3,6 @@ import Link from "next/link";
 import getRandomDate from "./getRandomDate";
 export default function DeveloperElement({ developer }) {
   const width = 400;
-  console.log(developer);
   return (
     <>
       <h2>{developer?.name}</h2>

@@ -4,20 +4,16 @@ import Image from "next/image";
 import GameDetailLists from "./GameDetailLists";
 import Link from "next/link";
 import { PageContext } from "../PageContextProvider";
-const GameDetailComponent = () => {
+import logo from "/public/logo.jpg";
+const GameDetail = () => {
   const { games } = useContext(PageContext);
   const router = useRouter();
   const gameDetail = games.find(
     (game) => game.id === parseInt(router.query.id)
   );
-  console.log("zmieniam gre");
-  console.log(gameDetail);
 
   return (
     <div>
-      <Link href="/Home" replace={false}>
-        <div>POWROT NA STRONE GLOWNA</div>
-      </Link>
       <h1>{gameDetail?.name}</h1>
       <Image
         src={gameDetail?.background_image}
@@ -65,4 +61,4 @@ const GameDetailComponent = () => {
   );
 };
 
-export default GameDetailComponent;
+export default GameDetail;

@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function GameDetailLists({ gameDetail }) {
   return (
     <div style={{ display: "flex" }}>
@@ -18,7 +19,11 @@ export default function GameDetailLists({ gameDetail }) {
       <ul>
         <h2>Developers</h2>
         {gameDetail?.my_developers?.map((developer) => (
-          <li key={developer.name}>{developer.name}</li>
+          <li key={developer.name}>
+            <Link href={`/developerDetail/${developer?.id}`}>
+              {developer?.name}
+            </Link>
+          </li>
         ))}
       </ul>
     </div>

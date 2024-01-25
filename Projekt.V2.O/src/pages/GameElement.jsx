@@ -5,7 +5,7 @@ export default function GameElement({ game }) {
   return (
     <>
       <h2>{game?.name}</h2>
-      <Link href={`gameDetail/${game?.id}`} replace={false}>
+      <Link href={`/gameDetail/${game?.id}`}>
         <Image
           src={game?.background_image}
           alt={`${game?.name} image`}
