@@ -17,7 +17,9 @@ export default function GameDetailLists({ gameDetail }) {
 
       <ul>
         <h2>Developers</h2>
-        TBD
+        {gameDetail?.my_developers?.map((developer) => (
+          <li key={developer.name}>{developer.name}</li>
+        ))}
       </ul>
     </div>
   );

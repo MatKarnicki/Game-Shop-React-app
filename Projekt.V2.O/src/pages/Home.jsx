@@ -1,11 +1,35 @@
+import { useState } from "react";
 import DeveloperList from "./DeveloperList";
 import GameList from "./GameList";
 
 const Home = () => {
+  const [showDeveloperPage, setShowDeveloperPage] = useState(false);
+
   return (
     <div>
-      <DeveloperList />
-      {/* <GameList /> */}
+      <div
+        style={{
+          display: "flex",
+          width: 520,
+          justifyContent: "space-between",
+          marginLeft: "2em",
+          marginBottom: "1em",
+        }}
+      >
+        <button
+          style={{ width: "250px", height: 50 }}
+          onClick={() => setShowDeveloperPage(false)}
+        >
+          Game List
+        </button>
+        <button
+          style={{ width: "250px" }}
+          onClick={() => setShowDeveloperPage(true)}
+        >
+          Developer List
+        </button>
+      </div>
+      <div>{showDeveloperPage ? <DeveloperList /> : <GameList />}</div>
     </div>
   );
 };

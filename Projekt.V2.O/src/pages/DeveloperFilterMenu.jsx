@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { PageContext } from "./PageContextProvider";
 
-const GameFilterMenu = ({ setGameList }) => {
-  const { sortGames } = useContext(PageContext);
+const DeveloperFilterMenu = ({ setDeveloperList }) => {
+  const { sortDevelopers } = useContext(PageContext);
 
   const createSortButton = (label, sortingFunction) => (
     <button
       style={{ marginBottom: "0.5em", width: "150px" }}
       onClick={() => {
-        setGameList(sortGames(sortingFunction));
+        setDeveloperList(sortDevelopers(sortingFunction));
       }}
     >
       {label}
@@ -30,10 +30,16 @@ const GameFilterMenu = ({ setGameList }) => {
       </div>
 
       <div>
-        {createSortButton("Score ↑", (a, b) => b.metacritic - a.metacritic)}
-        {createSortButton("Score ↓", (a, b) => a.metacritic - b.metacritic)}
+        {createSortButton(
+          "Games ↑",
+          (a, b) => b.my_games_count - a.my_games_count
+        )}
+        {createSortButton(
+          "Games ↓",
+          (a, b) => a.my_games_count - b.my_games_count
+        )}
       </div>
-      <div>
+      {/* <div>
         {createSortButton(
           "Release Date ↑",
           (a, b) => new Date(a.released) - new Date(b.released)
@@ -42,9 +48,9 @@ const GameFilterMenu = ({ setGameList }) => {
           "Release Date ↓",
           (a, b) => new Date(b.released) - new Date(a.released)
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
 
-export default GameFilterMenu;
+export default DeveloperFilterMenu;

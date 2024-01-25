@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { GamePageContext } from "./GamePageContextProvider";
+import { PageContext } from "./PageContextProvider";
 import GameElement from "./GameElement";
 import GameFilterMenu from "./GameFilterMenu";
 
 const GameList = () => {
-  const { games } = useContext(GamePageContext);
+  const { games } = useContext(PageContext);
   const [gameList, setGameList] = useState(games);
   useEffect(() => setGameList(games), [games]);
   return (

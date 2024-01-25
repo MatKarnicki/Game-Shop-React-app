@@ -1,6 +1,6 @@
 const developerPageReducer = (state, action) => {
   switch (action.type) {
-    case "SET_DEVELOPER_LIST":
+    case "SET_DEVELOPERS_LIST":
       return action.payload;
     default:
       return state;

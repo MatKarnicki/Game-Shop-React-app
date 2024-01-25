@@ -1,20 +1,19 @@
 import { useContext, useEffect, useState } from "react";
-import { DeveloperPageContext } from "./DeveloperPageContextProvider";
-// import GameElement from "./GameElement";
-// import GameFilterMenu from "./GameFilterMenu";
+import { PageContext } from "./PageContextProvider";
+import DeveloperElement from "./DeveloperElement";
+import DeveloperFilterMenu from "./DeveloperFilterMenu";
 
 const DeveloperList = () => {
-  const { developers } = useContext(DeveloperPageContext);
+  const { developers } = useContext(PageContext);
   const [developerList, setDeveloperList] = useState(developers);
   useEffect(() => setDeveloperList(developers), [developers]);
   return (
     <div>
-      {/* <GameFilterMenu setGameList={setGameList} /> */}
+      <DeveloperFilterMenu setDeveloperList={setDeveloperList} />
       <ul style={{ listStyleType: "none" }}>
         {developerList?.map((developer) => (
           <li key={developer.id}>
-            {/* <GameElement game={developer} /> */}
-            {developer.name}
+            <DeveloperElement developer={developer} />
           </li>
         ))}
       </ul>
