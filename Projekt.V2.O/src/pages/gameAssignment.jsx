@@ -1,6 +1,7 @@
 const gameAssignment = (games, developers) => {
   developers?.map((developer) => {
     developer.my_games_count = 0;
+    developer.my_games = [];
   });
   games?.map((game) => {
     const randomNumber = Math.floor(Math.random() * developers.length);

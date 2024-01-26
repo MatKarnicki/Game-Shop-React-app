@@ -12,7 +12,7 @@ const GameGrid = ({ games }) => {
   return (
     <>
       <ul style={gridStyle}>
-        {games.map((game) => (
+        {games?.map((game) => (
           <li key={game.id}>
             <GameElement game={game} />
           </li>

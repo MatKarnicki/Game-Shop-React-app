@@ -2,6 +2,10 @@ const developerPageReducer = (state, action) => {
   switch (action.type) {
     case "SET_DEVELOPERS_LIST":
       return action.payload;
+    case "DELETE_DEVELOPER":
+      return state.filter(
+        (developer) => developer.id !== action.payload.developerid
+      );
     case "REMOVE_GAME_FROM_DEVELOPER":
       const developersID = action.payload.developers.map(
         (developer) => developer.id

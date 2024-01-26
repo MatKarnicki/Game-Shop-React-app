@@ -12,7 +12,7 @@ const GameDetail = () => {
     (game) => game.id === parseInt(router.query.id)
   );
   const handleGameDeletion = () => {
-    gamesDispatch({ type: "DELETE_GAME", payload: { gameID: gameDetail.id } });
+    gamesDispatch({ type: "DELETE_GAME", payload: { gameid: gameDetail.id } });
     developersDispatch({
       type: "REMOVE_GAME_FROM_DEVELOPER",
       payload: { gameid: gameDetail.id, developers: gameDetail.my_developers },
@@ -64,7 +64,10 @@ const GameDetail = () => {
         magni ratione, assumenda aspernatur tempora!
       </h4>
       <Link href="/Home">
-        <button onClick={() => handleGameDeletion()}>
+        <button
+          style={{ color: "white", background: "red", marginBottom: "50px" }}
+          onClick={() => handleGameDeletion()}
+        >
           Delete Game Forever
         </button>
       </Link>

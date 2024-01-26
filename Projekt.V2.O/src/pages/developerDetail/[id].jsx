@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import Link from "next/link";
 import { PageContext } from "../PageContextProvider";
 import GameGrid from "./GameGrid";
 
 const DeveloperDetails = () => {
   const [showGames, setShowGames] = useState(false);
-  const { developers } = useContext(PageContext);
+  const { developers, gamesDispatch, developersDispatch } =
+    useContext(PageContext);
   const router = useRouter();
   const developerDetail = developers.find(
     (developer) => developer.id === parseInt(router.query.id)
@@ -15,7 +17,19 @@ const DeveloperDetails = () => {
   const handleDeveloperGames = () => {
     setShowGames(!showGames);
   };
-
+  const handleDeveloperDeletion = () => {
+    developersDispatch({
+      type: "DELETE_DEVELOPER",
+      payload: { developerid: developerDetail.id },
+    });
+    gamesDispatch({
+      type: "REMOVE_ALL_DEVELOPER_GAMES",
+      payload: {
+        developerid: developerDetail.id,
+        games: developerDetail.my_games,
+      },
+    });
+  };
   return (
     <div>
       <div style={{ marginLeft: "40px" }}>
@@ -43,11 +57,29 @@ const DeveloperDetails = () => {
           amet suscipit iusto. Eaque ad modi doloribus pariatur iure recusandae,
           illo labore voluptates rem sunt, vitae aut?
         </h4>
-        <button onClick={() => handleDeveloperGames()}>
-          {showGames
-            ? "Collapse the list of games"
-            : "Expand the list of games"}
-        </button>
+        <div
+          style={{
+            display: "flex",
+            width: "400px",
+            justifyContent: "space-between",
+          }}
+        >
+          {developerDetail?.my_games_count !== 0 && (
+            <button onClick={() => handleDeveloperGames()}>
+              {showGames
+                ? "Collapse the list of games"
+                : "Expand the list of games"}
+            </button>
+          )}
+          <Link href="/Home">
+            <button
+              style={{ color: "white", background: "red" }}
+              onClick={() => handleDeveloperDeletion()}
+            >
+              Delete Developer Forever
+            </button>
+          </Link>
+        </div>
       </div>
       {showGames && <GameGrid games={developerDetail?.my_games} />}
     </div>
