@@ -19,11 +19,21 @@ const GameSchema = object().shape({
     .min(1, "Score is too low")
     .round()
     .max(100, "Score is too high"),
+  newscore: number()
+    .nullable()
+    .min(1, "Score is too low")
+    .round()
+    .max(100, "Score is too high"),
   released: date()
     .required("Date is required")
     .min("1960-01-01", "Invalid date")
     .max(new Date(), "Date can't be in the future"),
+  newreleased: date()
+    .nullable()
+    .min("1960-01-01", "Invalid date")
+    .max(new Date(), "Date can't be in the future"),
   background_image: string().url().required("Please enter image url"),
+  newbackground_image: string().url().nullable(),
   platform: string().ensure().required("Please select a platform"),
   genre: string().ensure().required("Please select a genre"),
   developer: string().ensure().required("Please select a developer"),
@@ -71,6 +81,12 @@ const GameForm = () => {
     { id: 20, name: "Xbox One" },
     { id: 21, name: "Xbox Series S/X" },
   ];
+  const fieldStyle = {
+    marginBottom: "0.5em",
+    width: "350px",
+    height: "30px",
+    fontSize: "18px",
+  };
   return (
     <>
       <div
@@ -105,19 +121,44 @@ const GameForm = () => {
         }}
         validationSchema={GameSchema}
         onSubmit={(values) => {
-          gamesDispatch({
-            type: modifyGame ? "MODIFY" : "ADD",
-            payload: { values },
-          });
+          modifyGame
+            ? gamesDispatch({
+                type: "MODIFY_GAME",
+                payload: {
+                  id: parseInt(Math.floor(Math.random() * 1000) * games.length),
+                  name: values.name,
+                  newname: values.newname,
+                  newscore: values.newscore,
+                  newreleased: values.newreleased,
+                  newbackground_image: values.newbackground_image,
+                },
+              })
+            : gamesDispatch({
+                type: "ADD_GAME",
+                payload: {
+                  id: parseInt(Math.floor(Math.random() * 1000) * games.length),
+                  name: values.name,
+                  metacritic: values.metacritic,
+                  released: values.released,
+                  background_image: values.background_image,
+                  platform: values.platform,
+                  genre: values.genre,
+                  developer: values.developer,
+                  developerid: developers.find(
+                    (developer) => (developer.name = values.developer)
+                  ).id,
+                },
+              });
         }}
       >
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <br />
             <label>Game Name: </label>
+            <br />
             {modifyGame ? (
               <>
-                <Field name="genre" as="select">
+                <Field style={fieldStyle} name="name" as="select">
                   {games.map((game) => (
                     <option key={game.name} value={game.name}>
                       {game.name}
@@ -125,31 +166,63 @@ const GameForm = () => {
                   ))}
                 </Field>
                 <br />
-                <label>New Name(optional): </label>
-                <Field name="newname" as="input" />
+                <label>New name:</label>
+                <br />
+                <Field
+                  style={fieldStyle}
+                  name="newname"
+                  as="input"
+                  type="number"
+                />
                 <ErrorMessage name="newname"></ErrorMessage>
               </>
             ) : (
-              <Field name="name" as="input" />
+              <Field style={fieldStyle} name="name" as="input" />
             )}
             <ErrorMessage name="name"></ErrorMessage>
             <br />
-            <label>Score: </label>
-            <Field name="metacritic" as="input" type="number" />
-            <ErrorMessage name="metacritic"></ErrorMessage>
+            <label>{modifyGame ? "New Score:" : "Score:"}</label>
             <br />
-            <label>ReleaseDate: </label>
-            <Field name="released" as="input" type="date" />
-            <ErrorMessage name="released"></ErrorMessage>
+            <Field
+              style={fieldStyle}
+              name={modifyGame ? "newscore" : "metacritic"}
+              as="input"
+              type="number"
+            />
+            <ErrorMessage
+              name={modifyGame ? "newscore" : "metacritic"}
+            ></ErrorMessage>
             <br />
-            <label>Image URL: </label>
-            <Field name="background_image" as="input" />
-            <ErrorMessage name="background_image"></ErrorMessage>
+            <label>{modifyGame ? "New Release Date:" : "Release Date:"}</label>
+            <br />
+            <Field
+              style={fieldStyle}
+              name={modifyGame ? "newreleased" : "released"}
+              as="input"
+              type="date"
+            />
+            <ErrorMessage
+              name={modifyGame ? "newreleased" : "released"}
+            ></ErrorMessage>
+            <br />
+            <label>
+              {modifyGame ? "New Background image URL" : "Background image"}:{" "}
+            </label>
+            <br />
+            <Field
+              style={fieldStyle}
+              name={modifyGame ? "newbackground_image" : "background_image"}
+              as="input"
+            />
+            <ErrorMessage
+              name={modifyGame ? "newbackground_image" : "background_image"}
+            ></ErrorMessage>
             <br />
             {!modifyGame && (
               <div>
                 <label>Platform: </label>
-                <Field name="platform" as="select">
+                <br />
+                <Field style={fieldStyle} name="platform" as="select">
                   <option value="">Select a platform</option>
                   {platforms.map((platform) => (
                     <option key={platform.name} value={platform.name}>
@@ -160,7 +233,8 @@ const GameForm = () => {
                 <ErrorMessage name="platform"></ErrorMessage>
                 <br />
                 <label>Genre: </label>
-                <Field name="genre" as="select">
+                <br />
+                <Field style={fieldStyle} name="genre" as="select">
                   <option value="">Select a Genre</option>
                   {genres.map((genre) => (
                     <option key={genre.name} value={genre.name}>
@@ -171,7 +245,8 @@ const GameForm = () => {
                 <ErrorMessage name="genre"></ErrorMessage>
                 <br />
                 <label>Developer: </label>
-                <Field name="developer" as="select">
+                <br />
+                <Field style={fieldStyle} name="developer" as="select">
                   <option value="">Select a Developer</option>
                   {developers.map((developer) => (
                     <option key={developer.name} value={developer.name}>

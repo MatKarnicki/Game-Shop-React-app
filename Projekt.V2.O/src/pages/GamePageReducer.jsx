@@ -18,6 +18,22 @@ const gamePageReducer = (state, action) => {
       });
     case "DELETE_GAME":
       return state.filter((game) => game.id !== action.payload.gameid);
+    case "ADD_GAME":
+      return [
+        ...state,
+        {
+          id: action.payload.id,
+          name: action.payload.name,
+          metacritic: action.payload.metacritic,
+          released: action.payload.released,
+          background_image: action.payload.background_image,
+          platforms: [{ platform: { name: action.payload.platform } }],
+          genres: [{ name: action.payload.genre }],
+          my_developers: [
+            { id: action.payload.developerid, name: action.payload.developer },
+          ],
+        },
+      ];
     default:
       return state;
   }
