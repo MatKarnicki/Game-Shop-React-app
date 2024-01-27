@@ -17,14 +17,18 @@ export default function GameDetailLists({ gameDetail }) {
       </ul>
 
       <ul>
-        <h2>Developers</h2>
-        {gameDetail?.my_developers?.map((developer) => (
-          <li key={developer.name}>
-            <Link href={`/developerDetail/${developer?.id}`}>
-              {developer?.name}
-            </Link>
-          </li>
-        ))}
+        {gameDetail?.my_developers?.length > 0 && (
+          <div>
+            <h2>Developers</h2>
+            {gameDetail?.my_developers?.map((developer) => (
+              <li key={developer.name}>
+                <Link href={`/developerDetail/${developer?.id}`}>
+                  {developer?.name}
+                </Link>
+              </li>
+            ))}
+          </div>
+        )}
       </ul>
     </div>
   );
