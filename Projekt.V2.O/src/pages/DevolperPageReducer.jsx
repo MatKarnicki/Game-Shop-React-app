@@ -22,7 +22,26 @@ const developerPageReducer = (state, action) => {
         }
         return developer;
       });
-
+    case "ADD_GAME_TO_DEVELOPER_GAMES":
+      return state.map((developer) => {
+        if (action.payload.developerid === developer.id) {
+          return {
+            ...developer,
+            my_games_count: developer.my_games_count + 1,
+            my_games: [
+              ...developer.my_games,
+              {
+                id: action.payload.id,
+                name: action.payload.name,
+                metacritic: action.payload.metacritic,
+                released: action.payload.released,
+                background_image: action.payload.background_image,
+              },
+            ],
+          };
+        }
+        return developer;
+      });
     default:
       return state;
   }

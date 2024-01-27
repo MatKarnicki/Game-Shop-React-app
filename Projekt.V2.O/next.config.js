@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "media.rawg.io",
+        hostname: "**",
       },
     ],
   },

@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import logo from "/public/logo.jpg";
 import "./style.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
@@ -13,6 +15,7 @@ const MyApp = ({ Component, pageProps }) => {
       </Link>
       <br />
       <Component {...pageProps} />
+      <ToastContainer />
     </PageContextProvider>
   );
 };

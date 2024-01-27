@@ -2,18 +2,20 @@ import { Field, Formik, ErrorMessage } from "formik";
 import { date, number, object, string } from "yup";
 import { useContext, useState } from "react";
 import { PageContext } from "./PageContextProvider";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const GameSchema = object().shape({
   name: string()
     .min(1, "Game title is too short")
     .max(250, "Game title is too long")
     .required("Game title is required")
-    .matches(/^[a-zA-Z ]*$/),
+    .matches(/^[a-zA-Z ]*$/, "Please use only letters and numbers"),
   newname: string()
     .min(1, "Game title is too short")
     .max(250, "Game title is too long")
     .nullable()
-    .matches(/^[a-zA-Z ]*$/),
+    .matches(/^[a-zA-Z0-9]*$/, "Please use only letters and numbers"),
   metacritic: number()
     .required("Game Score is required")
     .min(1, "Score is too low")
@@ -39,10 +41,10 @@ const GameSchema = object().shape({
   developer: string().ensure().required("Please select a developer"),
 });
 
-// definicja komponentu formularza
 const GameForm = () => {
   const [modifyGame, setModifyGame] = useState(false);
-  const { gamesDispatch, developers, games } = useContext(PageContext);
+  const { gamesDispatch, developersDispatch, developers, games } =
+    useContext(PageContext);
   const genres = [
     { id: 0, name: "Action" },
     { id: 1, name: "Simulation" },
@@ -108,35 +110,56 @@ const GameForm = () => {
           Modify Game
         </button>
       </div>
-      {modifyGame ? <h2>MODIFY GAME</h2> : <h2>ADD GAME</h2>}
-      <Formik
-        initialValues={{
-          name: "",
-          metacritic: "",
-          released: "1960-01-01",
-          background_image: "",
-          platform: "",
-          genre: "",
-          developer: "",
-        }}
-        validationSchema={GameSchema}
-        onSubmit={(values) => {
-          modifyGame
-            ? gamesDispatch({
+      <div style={{ marginLeft: "30px" }}>
+        {modifyGame ? <h2>MODIFY GAME</h2> : <h2>ADD GAME</h2>}
+        <Formik
+          initialValues={{
+            name: "",
+            metacritic: "",
+            released: "1960-01-01",
+            background_image: "",
+            platform: "",
+            genre: "",
+            developer: "",
+            newname: "",
+            newscore: "",
+            newreleased: "",
+            newbackground_image: "",
+          }}
+          validationSchema={GameSchema}
+          onSubmit={(values) => {
+            if (
+              games.some(
+                (game) => game.name.toLowerCase() === values.name.toLowerCase()
+              ) ||
+              games.some(
+                (game) =>
+                  game.name.toLowerCase() === values.newname.toLowerCase()
+              )
+            ) {
+              toast.error("This game already exists");
+              return;
+            }
+            const gameid = parseInt(
+              Math.floor(Math.random() * 1000) * games.length
+            );
+            if (modifyGame) {
+              gamesDispatch({
                 type: "MODIFY_GAME",
                 payload: {
-                  id: parseInt(Math.floor(Math.random() * 1000) * games.length),
+                  id: gameid,
                   name: values.name,
                   newname: values.newname,
                   newscore: values.newscore,
                   newreleased: values.newreleased,
                   newbackground_image: values.newbackground_image,
                 },
-              })
-            : gamesDispatch({
+              });
+            } else {
+              gamesDispatch({
                 type: "ADD_GAME",
                 payload: {
-                  id: parseInt(Math.floor(Math.random() * 1000) * games.length),
+                  id: gameid,
                   name: values.name,
                   metacritic: values.metacritic,
                   released: values.released,
@@ -145,123 +168,135 @@ const GameForm = () => {
                   genre: values.genre,
                   developer: values.developer,
                   developerid: developers.find(
-                    (developer) => (developer.name = values.developer)
+                    (developer) => developer.name === values.developer
                   ).id,
                 },
               });
-        }}
-      >
-        {({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
-            <br />
-            <label>Game Name: </label>
-            <br />
-            {modifyGame ? (
-              <>
-                <Field style={fieldStyle} name="name" as="select">
-                  {games.map((game) => (
-                    <option key={game.name} value={game.name}>
-                      {game.name}
-                    </option>
-                  ))}
-                </Field>
-                <br />
-                <label>New name:</label>
-                <br />
-                <Field
-                  style={fieldStyle}
-                  name="newname"
-                  as="input"
-                  type="number"
-                />
-                <ErrorMessage name="newname"></ErrorMessage>
-              </>
-            ) : (
-              <Field style={fieldStyle} name="name" as="input" />
-            )}
-            <ErrorMessage name="name"></ErrorMessage>
-            <br />
-            <label>{modifyGame ? "New Score:" : "Score:"}</label>
-            <br />
-            <Field
-              style={fieldStyle}
-              name={modifyGame ? "newscore" : "metacritic"}
-              as="input"
-              type="number"
-            />
-            <ErrorMessage
-              name={modifyGame ? "newscore" : "metacritic"}
-            ></ErrorMessage>
-            <br />
-            <label>{modifyGame ? "New Release Date:" : "Release Date:"}</label>
-            <br />
-            <Field
-              style={fieldStyle}
-              name={modifyGame ? "newreleased" : "released"}
-              as="input"
-              type="date"
-            />
-            <ErrorMessage
-              name={modifyGame ? "newreleased" : "released"}
-            ></ErrorMessage>
-            <br />
-            <label>
-              {modifyGame ? "New Background image URL" : "Background image"}:{" "}
-            </label>
-            <br />
-            <Field
-              style={fieldStyle}
-              name={modifyGame ? "newbackground_image" : "background_image"}
-              as="input"
-            />
-            <ErrorMessage
-              name={modifyGame ? "newbackground_image" : "background_image"}
-            ></ErrorMessage>
-            <br />
-            {!modifyGame && (
-              <div>
-                <label>Platform: </label>
-                <br />
-                <Field style={fieldStyle} name="platform" as="select">
-                  <option value="">Select a platform</option>
-                  {platforms.map((platform) => (
-                    <option key={platform.name} value={platform.name}>
-                      {platform.name}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage name="platform"></ErrorMessage>
-                <br />
-                <label>Genre: </label>
-                <br />
-                <Field style={fieldStyle} name="genre" as="select">
-                  <option value="">Select a Genre</option>
-                  {genres.map((genre) => (
-                    <option key={genre.name} value={genre.name}>
-                      {genre.name}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage name="genre"></ErrorMessage>
-                <br />
-                <label>Developer: </label>
-                <br />
-                <Field style={fieldStyle} name="developer" as="select">
-                  <option value="">Select a Developer</option>
-                  {developers.map((developer) => (
-                    <option key={developer.name} value={developer.name}>
-                      {developer.name}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage name="developer"></ErrorMessage>
-              </div>
-            )}
-            <br />
-            <button type="submit">Submit</button>
-          </form>
-        )}
-      </Formik>
+              developersDispatch({
+                type: "ADD_GAME_TO_DEVELOPER_GAMES",
+                payload: {
+                  developerid: developers.find(
+                    (developer) => developer.name === values.developer
+                  ).id,
+                  id: gameid,
+                  name: values.name,
+                  metacritic: values.metacritic,
+                  released: values.released,
+                  background_image: values.background_image,
+                },
+              });
+            }
+          }}
+        >
+          {({ handleSubmit }) => (
+            <form onSubmit={handleSubmit}>
+              <br />
+              <label>Game Name: </label>
+              <br />
+              {modifyGame ? (
+                <>
+                  <Field style={fieldStyle} name="name" as="select">
+                    {games.map((game) => (
+                      <option key={game.name} value={game.name}>
+                        {game.name}
+                      </option>
+                    ))}
+                  </Field>
+                  <br />
+                  <label>New name:</label>
+                  <br />
+                  <Field style={fieldStyle} name="newname" as="input" />
+                  <ErrorMessage name="newname"></ErrorMessage>
+                </>
+              ) : (
+                <Field style={fieldStyle} name="name" as="input" />
+              )}
+              <ErrorMessage name="name"></ErrorMessage>
+              <br />
+              <label>{modifyGame ? "New Score:" : "Score:"}</label>
+              <br />
+              <Field
+                style={fieldStyle}
+                name={modifyGame ? "newscore" : "metacritic"}
+                as="input"
+                type="number"
+              />
+              <ErrorMessage
+                name={modifyGame ? "newscore" : "metacritic"}
+              ></ErrorMessage>
+              <br />
+              <label>
+                {modifyGame ? "New Release Date:" : "Release Date:"}
+              </label>
+              <br />
+              <Field
+                style={fieldStyle}
+                name={modifyGame ? "newreleased" : "released"}
+                as="input"
+                type="date"
+              />
+              <ErrorMessage
+                name={modifyGame ? "newreleased" : "released"}
+              ></ErrorMessage>
+              <br />
+              <label>
+                {modifyGame ? "New Background image URL" : "Background image"}:{" "}
+              </label>
+              <br />
+              <Field
+                style={fieldStyle}
+                name={modifyGame ? "newbackground_image" : "background_image"}
+                as="input"
+              />
+              <ErrorMessage
+                name={modifyGame ? "newbackground_image" : "background_image"}
+              ></ErrorMessage>
+              <br />
+              {!modifyGame && (
+                <div>
+                  <label>Platform: </label>
+                  <br />
+                  <Field style={fieldStyle} name="platform" as="select">
+                    <option value="">Select a platform</option>
+                    {platforms.map((platform) => (
+                      <option key={platform.name} value={platform.name}>
+                        {platform.name}
+                      </option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="platform"></ErrorMessage>
+                  <br />
+                  <label>Genre: </label>
+                  <br />
+                  <Field style={fieldStyle} name="genre" as="select">
+                    <option value="">Select a Genre</option>
+                    {genres.map((genre) => (
+                      <option key={genre.name} value={genre.name}>
+                        {genre.name}
+                      </option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="genre"></ErrorMessage>
+                  <br />
+                  <label>Developer: </label>
+                  <br />
+                  <Field style={fieldStyle} name="developer" as="select">
+                    <option value="">Select a Developer</option>
+                    {developers.map((developer) => (
+                      <option key={developer.name} value={developer.name}>
+                        {developer.name}
+                      </option>
+                    ))}
+                  </Field>
+                  <ErrorMessage name="developer"></ErrorMessage>
+                </div>
+              )}
+              <br />
+              <button type="submit">Submit</button>
+            </form>
+          )}
+        </Formik>
+      </div>
     </>
   );
 };
