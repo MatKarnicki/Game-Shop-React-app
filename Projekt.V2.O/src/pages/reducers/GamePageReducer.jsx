@@ -2,6 +2,7 @@ const gamePageReducer = (state, action) => {
   switch (action.type) {
     case "SET_GAME_LIST":
       return action.payload;
+
     case "REMOVE_ALL_DEVELOPER_GAMES":
       const games = action.payload.games.map((game) => game.id);
       return state.map((game) => {
@@ -16,9 +17,10 @@ const gamePageReducer = (state, action) => {
 
         return game;
       });
-    case "DELETE_GAME":
+    case "DELETE_GAME": {
       return state.filter((game) => game.id !== action.payload.gameid);
-    case "ADD_GAME":
+    }
+    case "ADD_GAME": {
       return [
         ...state,
         {
@@ -34,7 +36,8 @@ const gamePageReducer = (state, action) => {
           ],
         },
       ];
-    case "MODIFY_GAME":
+    }
+    case "MODIFY_GAME": {
       return state.map((game) => {
         if (game.name === action.payload.name) {
           return {
@@ -48,6 +51,7 @@ const gamePageReducer = (state, action) => {
         }
         return game;
       });
+    }
     case "MODIFY_GAMES_DEVELOPER_INFO": {
       return state.map((game) => {
         return {
@@ -94,7 +98,6 @@ const gamePageReducer = (state, action) => {
         return game;
       });
     }
-
     case "ADD_GENRE_TO_GAME": {
       return state.map((game) => {
         const genres = game.genres.map((genre) => genre.name);
@@ -135,6 +138,19 @@ const gamePageReducer = (state, action) => {
                 name: action.payload.developer,
               },
             ],
+          };
+        }
+        return game;
+      });
+    }
+    case "REMOVE_DEVELOPER_FROM_GAME": {
+      return state.map((game) => {
+        if (game.id === action.payload.gameid) {
+          return {
+            ...game,
+            my_developers: game.my_developers.filter(
+              (developer) => developer.name !== action.payload.developer
+            ),
           };
         }
         return game;

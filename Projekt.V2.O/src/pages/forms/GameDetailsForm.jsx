@@ -2,7 +2,6 @@ import { Field, Formik, ErrorMessage } from "formik";
 import { object, string } from "yup";
 import { useContext, useState } from "react";
 import { PageContext } from "../contexts/PageContextProvider";
-import "react-toastify/dist/ReactToastify.css";
 
 const GameDetailsSchema = object().shape({
   platform: string().ensure().nullable(),
@@ -134,34 +133,52 @@ const GameDetailsForm = ({ gameDetail }) => {
                   });
             }
             //handleDeveloper
-            if (
-              values.developer !== "" &&
-              !gameDetail.my_developers.some((developer) => {
-                return developer.name === values.developer;
-              })
-            ) {
+            if (values.developer !== "") {
               const developerid = developers.find(
                 (developer) => developer.name === values.developer
               ).id;
-              gamesDispatch({
-                type: "ADD_DEVELOPER_TO_GAME",
-                payload: {
-                  gameid: gameDetail.id,
-                  developer: values.developer,
-                  developerid: developerid,
-                },
-              });
-              developersDispatch({
-                type: "ADD_GAME_TO_DEVELOPER_GAMES",
-                payload: {
-                  developerid: developerid,
-                  id: gameDetail.id,
-                  name: gameDetail.name,
-                  metacritic: gameDetail.metacritic,
-                  released: gameDetail.released,
-                  background_image: gameDetail.background_image,
-                },
-              });
+              if (!removeGameDetails) {
+                if (
+                  !gameDetail.my_developers.some((developer) => {
+                    return developer.name === values.developer;
+                  })
+                ) {
+                  gamesDispatch({
+                    type: "ADD_DEVELOPER_TO_GAME",
+                    payload: {
+                      gameid: gameDetail.id,
+                      developer: values.developer,
+                      developerid: developerid,
+                    },
+                  });
+                  developersDispatch({
+                    type: "ADD_GAME_TO_DEVELOPER_GAMES",
+                    payload: {
+                      developerid: developerid,
+                      id: gameDetail.id,
+                      name: gameDetail.name,
+                      metacritic: gameDetail.metacritic,
+                      released: gameDetail.released,
+                      background_image: gameDetail.background_image,
+                    },
+                  });
+                }
+              } else {
+                gamesDispatch({
+                  type: "REMOVE_DEVELOPER_FROM_GAME",
+                  payload: {
+                    gameid: gameDetail.id,
+                    developer: values.developer,
+                  },
+                });
+                developersDispatch({
+                  type: "REMOVE_GAME_FROM_DEVELOPER",
+                  payload: {
+                    developers: gameDetail.my_developers,
+                    gameid: gameDetail.id,
+                  },
+                });
+              }
             }
           }}
         >

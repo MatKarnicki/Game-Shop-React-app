@@ -78,7 +78,7 @@ const GameDetail = () => {
           </button>
         </Link>
       </div>
-      <div>
+      <div style={{ marginRight: "40px" }}>
         <h1>Modify game details</h1>
         <GameDetailsForm gameDetail={gameDetail} />
       </div>
