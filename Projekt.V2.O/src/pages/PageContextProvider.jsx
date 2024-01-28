@@ -43,7 +43,7 @@ const PageContextProvider = ({ children }) => {
     return sortedDevelopers;
   };
   useEffect(() => {
-    if (games.length > 0 && developers.length > 0 && !didRun.current) {
+    if (games?.length > 0 && developers.length > 0 && !didRun.current) {
       gameAssignment(games, developers);
       didRun.current = true;
     }

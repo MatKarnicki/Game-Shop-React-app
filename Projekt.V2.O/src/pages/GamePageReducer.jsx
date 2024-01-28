@@ -34,6 +34,20 @@ const gamePageReducer = (state, action) => {
           ],
         },
       ];
+    case "MODIFY_GAME":
+      return state.map((game) => {
+        if (game.name === action.payload.name) {
+          return {
+            ...game,
+            name: action.payload.newname || game.name,
+            metacritic: action.payload.newscore || game.metacritic,
+            released: action.payload.newreleased || game.released,
+            background_image:
+              action.payload.newbackground_image || game.background_image,
+          };
+        }
+        return game;
+      });
     default:
       return state;
   }

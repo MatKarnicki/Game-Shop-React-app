@@ -42,6 +42,31 @@ const developerPageReducer = (state, action) => {
         }
         return developer;
       });
+    case "MODIFY_DEVELOPERS_GAME_INFO":
+      return state.map((developer) => {
+        if (
+          developer.my_games.some((game) => game.name === action.payload.name)
+        ) {
+          return {
+            ...developer,
+            my_games: developer.my_games.map((game) => {
+              if (game.name === action.payload.name) {
+                return {
+                  ...game,
+                  name: action.payload.newname || game.name,
+                  metacritic: action.payload.newscore || game.metacritic,
+                  released: action.payload.newreleased || game.released,
+                  background_image:
+                    action.payload.newbackground_image || game.background_image,
+                };
+              }
+              return game;
+            }),
+          };
+        }
+        return developer;
+      });
+
     default:
       return state;
   }

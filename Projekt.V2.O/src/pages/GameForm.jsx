@@ -10,19 +10,9 @@ const GameSchema = object().shape({
     .min(1, "Game title is too short")
     .max(250, "Game title is too long")
     .required("Game title is required")
-    .matches(/^[a-zA-Z ]*$/, "Please use only letters and numbers"),
-  newname: string()
-    .min(1, "Game title is too short")
-    .max(250, "Game title is too long")
-    .nullable()
-    .matches(/^[a-zA-Z0-9]*$/, "Please use only letters and numbers"),
+    .matches(/^[a-zA-Z0-9 ]*$/, "Please use only letters and numbers"),
   metacritic: number()
     .required("Game Score is required")
-    .min(1, "Score is too low")
-    .round()
-    .max(100, "Score is too high"),
-  newscore: number()
-    .nullable()
     .min(1, "Score is too low")
     .round()
     .max(100, "Score is too high"),
@@ -30,17 +20,29 @@ const GameSchema = object().shape({
     .required("Date is required")
     .min("1960-01-01", "Invalid date")
     .max(new Date(), "Date can't be in the future"),
-  newreleased: date()
-    .nullable()
-    .min("1960-01-01", "Invalid date")
-    .max(new Date(), "Date can't be in the future"),
+
   background_image: string().url().required("Please enter image url"),
-  newbackground_image: string().url().nullable(),
   platform: string().ensure().required("Please select a platform"),
   genre: string().ensure().required("Please select a genre"),
   developer: string().ensure().required("Please select a developer"),
 });
-
+const modifyGameSchema = object().shape({
+  newname: string()
+    .min(1, "Game title is too short")
+    .max(250, "Game title is too long")
+    .nullable()
+    .matches(/^[a-zA-Z0-9 ]*$/, "Please use only letters and numbers"),
+  newscore: number()
+    .nullable()
+    .min(1, "Score is too low")
+    .round()
+    .max(100, "Score is too high"),
+  newreleased: date()
+    .nullable()
+    .min("1960-01-01", "Invalid date")
+    .max(new Date(), "Date can't be in the future"),
+  newbackground_image: string().url().nullable(),
+});
 const GameForm = () => {
   const [modifyGame, setModifyGame] = useState(false);
   const { gamesDispatch, developersDispatch, developers, games } =
@@ -126,16 +128,19 @@ const GameForm = () => {
             newreleased: "",
             newbackground_image: "",
           }}
-          validationSchema={GameSchema}
+          validationSchema={modifyGame ? modifyGameSchema : GameSchema}
           onSubmit={(values) => {
             if (
-              games.some(
-                (game) => game.name.toLowerCase() === values.name.toLowerCase()
-              ) ||
-              games.some(
-                (game) =>
-                  game.name.toLowerCase() === values.newname.toLowerCase()
-              )
+              (!modifyGame &&
+                games.some(
+                  (game) =>
+                    game.name.toLowerCase() === values.name.toLowerCase()
+                )) ||
+              (modifyGame &&
+                games.some(
+                  (game) =>
+                    game.name.toLowerCase() === values.newname.toLowerCase()
+                ))
             ) {
               toast.error("This game already exists");
               return;
@@ -146,6 +151,17 @@ const GameForm = () => {
             if (modifyGame) {
               gamesDispatch({
                 type: "MODIFY_GAME",
+                payload: {
+                  id: gameid,
+                  name: values.name,
+                  newname: values.newname,
+                  newscore: values.newscore,
+                  newreleased: values.newreleased,
+                  newbackground_image: values.newbackground_image,
+                },
+              });
+              developersDispatch({
+                type: "MODIFY_DEVELOPERS_GAME_INFO",
                 payload: {
                   id: gameid,
                   name: values.name,
@@ -196,7 +212,8 @@ const GameForm = () => {
               {modifyGame ? (
                 <>
                   <Field style={fieldStyle} name="name" as="select">
-                    {games.map((game) => (
+                    <option value="">Select a game to modify</option>
+                    {games?.map((game) => (
                       <option key={game.name} value={game.name}>
                         {game.name}
                       </option>
@@ -209,9 +226,11 @@ const GameForm = () => {
                   <ErrorMessage name="newname"></ErrorMessage>
                 </>
               ) : (
-                <Field style={fieldStyle} name="name" as="input" />
+                <>
+                  <Field style={fieldStyle} name="name" as="input" />
+                  <ErrorMessage name="name"></ErrorMessage>
+                </>
               )}
-              <ErrorMessage name="name"></ErrorMessage>
               <br />
               <label>{modifyGame ? "New Score:" : "Score:"}</label>
               <br />
