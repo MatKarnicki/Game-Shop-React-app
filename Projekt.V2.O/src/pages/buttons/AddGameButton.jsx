@@ -7,7 +7,7 @@ import Link from "next/link";
 const AddGameButton = () => {
   const { setModifyGame } = useContext(GameFormContext);
   return (
-    <Link onClick={() => setModifyGame(false)} href="/GameForm">
+    <Link onClick={() => setModifyGame(false)} href="/forms/GameForm">
       <Image src={addGame} alt="addGame" width={250} height={150}></Image>
     </Link>
   );

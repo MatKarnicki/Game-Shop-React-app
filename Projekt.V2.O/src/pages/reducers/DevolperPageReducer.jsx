@@ -6,6 +6,31 @@ const developerPageReducer = (state, action) => {
       return state.filter(
         (developer) => developer.id !== action.payload.developerid
       );
+    case "MODIFY_DEVELOPER":
+      return state.map((developer) => {
+        if (developer.name === action.payload.name) {
+          return {
+            ...developer,
+            name: action.payload.newname || developer.name,
+            formed_in: action.payload.newformed_in || developer.formed_in,
+            image_background:
+              action.payload.newbackground_image || developer.image_background,
+          };
+        }
+        return developer;
+      });
+    case "ADD_DEVELOPER":
+      return [
+        ...state,
+        {
+          id: action.payload.id,
+          name: action.payload.name,
+          formed_in: action.payload.formed_in,
+          image_background: action.payload.background_image,
+          my_games: [],
+          my_games_count: 0,
+        },
+      ];
     case "REMOVE_GAME_FROM_DEVELOPER":
       const developersID = action.payload.developers.map(
         (developer) => developer.id
