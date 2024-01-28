@@ -10,8 +10,7 @@ const DeveloperSchema = object().shape({
   name: string()
     .min(1, "Developer name is too short")
     .max(250, "Developer name is too long")
-    .required("Developer name is required")
-    .matches(/^[a-zA-Z0-9 ]*$/, "Please use only letters and numbers"),
+    .required("Developer name is required"),
   formed_in: date()
     .required("Date is required")
     .min("1960-01-01", "Invalid date")
@@ -20,11 +19,14 @@ const DeveloperSchema = object().shape({
   background_image: string().url().required("Please enter image url"),
 });
 const modifyDeveloperSchema = object().shape({
+  name: string()
+    .min(1, "Developer name is too short")
+    .max(250, "Developer name is too long")
+    .required("Developer name is required"),
   newname: string()
-    .min(1, "Game title is too short")
-    .max(250, "Game title is too long")
-    .nullable()
-    .matches(/^[a-zA-Z0-9 ]*$/, "Please use only letters and numbers"),
+    .min(1, "Developer name is too short")
+    .max(250, "Developer name is too long")
+    .nullable(),
   newformed_in: date()
     .nullable()
     .min("1960-01-01", "Invalid date")
@@ -114,7 +116,6 @@ const DeveloperForm = () => {
               gamesDispatch({
                 type: "MODIFY_GAMES_DEVELOPER_INFO",
                 payload: {
-                  id: developerid,
                   name: values.name,
                   newname: values.newname,
                 },
@@ -147,6 +148,7 @@ const DeveloperForm = () => {
                       </option>
                     ))}
                   </Field>
+                  <ErrorMessage name="name"></ErrorMessage>
                   <br />
                   <label>New name:</label>
                   <br />

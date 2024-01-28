@@ -10,8 +10,7 @@ const GameSchema = object().shape({
   name: string()
     .min(1, "Game title is too short")
     .max(250, "Game title is too long")
-    .required("Game title is required")
-    .matches(/^[a-zA-Z0-9 ]*$/, "Please use only letters and numbers"),
+    .required("Game title is required"),
   metacritic: number()
     .required("Game Score is required")
     .min(1, "Score is too low")
@@ -28,11 +27,14 @@ const GameSchema = object().shape({
   developer: string().ensure().required("Please select a developer"),
 });
 const modifyGameSchema = object().shape({
+  name: string()
+    .min(1, "Game title is too short")
+    .max(250, "Game title is too long")
+    .required("Game title is required"),
   newname: string()
     .min(1, "Game title is too short")
     .max(250, "Game title is too long")
-    .nullable()
-    .matches(/^[a-zA-Z0-9 ]*$/, "Please use only letters and numbers"),
+    .nullable(),
   newscore: number()
     .nullable()
     .min(1, "Score is too low")
@@ -220,6 +222,7 @@ const GameForm = () => {
                       </option>
                     ))}
                   </Field>
+                  <ErrorMessage name="name"></ErrorMessage>
                   <br />
                   <label>New name:</label>
                   <br />
