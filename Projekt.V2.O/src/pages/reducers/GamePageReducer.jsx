@@ -53,9 +53,7 @@ const gamePageReducer = (state, action) => {
         return {
           ...game,
           my_developers: game.my_developers.map((developer) => {
-            console.log(developer);
             if (developer.name === action.payload.name) {
-              console.log("udalo sie");
               return { ...developer, name: action.payload.newname };
             }
             return developer;

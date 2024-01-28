@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageContext } from "../contexts/PageContextProvider";
 import GameGrid from "./GameGrid";
+import ModifyDeveloperButton from "../buttons/ModifyDeveloperButton";
 
 const DeveloperDetails = () => {
   const [showGames, setShowGames] = useState(false);
@@ -60,12 +61,15 @@ const DeveloperDetails = () => {
         <div
           style={{
             display: "flex",
-            width: "400px",
+            width: "600px",
             justifyContent: "space-between",
           }}
         >
           {developerDetail?.my_games_count !== 0 && (
-            <button onClick={() => handleDeveloperGames()}>
+            <button
+              style={{ height: "30px", marginTop: "70px" }}
+              onClick={() => handleDeveloperGames()}
+            >
               {showGames
                 ? "Collapse the list of games"
                 : "Expand the list of games"}
@@ -73,12 +77,18 @@ const DeveloperDetails = () => {
           )}
           <Link href="/Home">
             <button
-              style={{ color: "white", background: "red" }}
+              style={{
+                marginTop: "70px",
+                height: "30px",
+                color: "white",
+                background: "red",
+              }}
               onClick={() => handleDeveloperDeletion()}
             >
               Delete Developer Forever
             </button>
           </Link>
+          <ModifyDeveloperButton />
         </div>
       </div>
       {showGames && <GameGrid games={developerDetail?.my_games} />}

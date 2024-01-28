@@ -8,7 +8,6 @@ const developerPageReducer = (state, action) => {
       );
     case "MODIFY_DEVELOPER":
       return state.map((developer) => {
-        console.log(action);
         if (developer.name === action.payload.name) {
           return {
             ...developer,
