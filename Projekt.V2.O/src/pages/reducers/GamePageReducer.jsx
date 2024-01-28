@@ -63,7 +63,13 @@ const gamePageReducer = (state, action) => {
     }
     case "ADD_PLATFORM_TO_GAME": {
       return state.map((game) => {
-        if (game.id === action.payload.gameid) {
+        const platforms = game.platforms.map(
+          (platform) => platform.platform.name
+        );
+        if (
+          game.id === action.payload.gameid &&
+          !platforms.includes(action.payload.platform)
+        ) {
           return {
             ...game,
             platforms: [
@@ -75,12 +81,43 @@ const gamePageReducer = (state, action) => {
         return game;
       });
     }
-    case "ADD_GENRE_TO_GAME": {
+    case "REMOVE_PLATFORM_FROM_GAME": {
       return state.map((game) => {
         if (game.id === action.payload.gameid) {
           return {
             ...game,
+            platforms: game.platforms.filter(
+              (platform) => platform.platform.name !== action.payload.platform
+            ),
+          };
+        }
+        return game;
+      });
+    }
+
+    case "ADD_GENRE_TO_GAME": {
+      return state.map((game) => {
+        const genres = game.genres.map((genre) => genre.name);
+        if (
+          game.id === action.payload.gameid &&
+          !genres.includes(action.payload.genre)
+        ) {
+          return {
+            ...game,
             genres: [...game.genres, { name: action.payload.genre }],
+          };
+        }
+        return game;
+      });
+    }
+    case "REMOVE_GENRE_FROM_GAME": {
+      return state.map((game) => {
+        if (game.id === action.payload.gameid) {
+          return {
+            ...game,
+            genres: game.genres.filter(
+              (genre) => genre.name !== action.payload.genre
+            ),
           };
         }
         return game;

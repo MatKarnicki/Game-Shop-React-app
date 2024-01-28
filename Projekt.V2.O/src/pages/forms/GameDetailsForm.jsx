@@ -2,7 +2,6 @@ import { Field, Formik, ErrorMessage } from "formik";
 import { object, string } from "yup";
 import { useContext, useState } from "react";
 import { PageContext } from "../contexts/PageContextProvider";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const GameDetailsSchema = object().shape({
@@ -12,7 +11,7 @@ const GameDetailsSchema = object().shape({
 });
 
 const GameDetailsForm = ({ gameDetail }) => {
-  const [addGameDetails, setAddGameDetails] = useState(false);
+  const [removeGameDetails, setRemoveGameDetails] = useState(false);
   const { gamesDispatch, developersDispatch, developers } =
     useContext(PageContext);
   const genres = [
@@ -72,19 +71,19 @@ const GameDetailsForm = ({ gameDetail }) => {
       >
         <button
           style={{ width: "250px", height: 50 }}
-          onClick={() => setAddGameDetails(false)}
+          onClick={() => setRemoveGameDetails(false)}
         >
           Add game details
         </button>
         <button
           style={{ width: "250px" }}
-          onClick={() => setAddGameDetails(true)}
+          onClick={() => setRemoveGameDetails(true)}
         >
           Remove game details
         </button>
       </div>
       <div style={{ marginLeft: "30px" }}>
-        {addGameDetails ? (
+        {removeGameDetails ? (
           <h2>DELETE GAME DETAILS</h2>
         ) : (
           <h2>ADD GAME DETAILS</h2>
@@ -97,74 +96,72 @@ const GameDetailsForm = ({ gameDetail }) => {
           }}
           validationSchema={GameDetailsSchema}
           onSubmit={(values) => {
-            if (!addGameDetails) {
-              if (values.platform !== "") {
-                if (
-                  !gameDetail.platforms.some((platform) => {
-                    return platform.platform.name === values.platform;
-                  })
-                ) {
-                  gamesDispatch({
+            //handlePlatform
+            if (values.platform !== "") {
+              !removeGameDetails
+                ? gamesDispatch({
                     type: "ADD_PLATFORM_TO_GAME",
                     payload: {
                       gameid: gameDetail.id,
                       platform: values.platform,
                     },
-                  });
-                } else {
-                  toast.error("This game contains that platform");
-                }
-              }
-              if (values.genre !== "") {
-                if (
-                  !gameDetail.genres.some((genre) => {
-                    return genre.name === values.genre;
                   })
-                ) {
-                  gamesDispatch({
+                : gamesDispatch({
+                    type: "REMOVE_PLATFORM_FROM_GAME",
+                    payload: {
+                      gameid: gameDetail.id,
+                      platform: values.platform,
+                    },
+                  });
+            }
+
+            //handleGenre
+            if (values.genre !== "") {
+              !removeGameDetails
+                ? gamesDispatch({
                     type: "ADD_GENRE_TO_GAME",
                     payload: {
                       gameid: gameDetail.id,
                       genre: values.genre,
                     },
-                  });
-                } else {
-                  toast.error("This game contains this genre");
-                }
-              }
-              if (values.developer !== "") {
-                if (
-                  !gameDetail.my_developers.some((developer) => {
-                    return developer.name === values.developer;
                   })
-                ) {
-                  const developerid = developers.find(
-                    (developer) => developer.name === values.developer
-                  ).id;
-                  gamesDispatch({
-                    type: "ADD_DEVELOPER_TO_GAME",
+                : gamesDispatch({
+                    type: "REMOVE_GENRE_FROM_GAME",
                     payload: {
                       gameid: gameDetail.id,
-                      developer: values.developer,
-                      developerid: developerid,
+                      genre: values.genre,
                     },
                   });
-                  developersDispatch({
-                    type: "ADD_GAME_TO_DEVELOPER_GAMES",
-                    payload: {
-                      developerid: developerid,
-                      id: gameDetail.id,
-                      name: gameDetail.name,
-                      metacritic: gameDetail.metacritic,
-                      released: gameDetail.released,
-                      background_image: gameDetail.background_image,
-                    },
-                  });
-                } else {
-                  toast.error("This game is already made by that developer");
-                }
-              }
-            } else {
+            }
+            //handleDeveloper
+            if (
+              values.developer !== "" &&
+              !gameDetail.my_developers.some((developer) => {
+                return developer.name === values.developer;
+              })
+            ) {
+              const developerid = developers.find(
+                (developer) => developer.name === values.developer
+              ).id;
+              gamesDispatch({
+                type: "ADD_DEVELOPER_TO_GAME",
+                payload: {
+                  gameid: gameDetail.id,
+                  developer: values.developer,
+                  developerid: developerid,
+                },
+              });
+              developersDispatch({
+                type: "ADD_GAME_TO_DEVELOPER_GAMES",
+                payload: {
+                  developerid: developerid,
+                  id: gameDetail.id,
+                  name: gameDetail.name,
+                  metacritic: gameDetail.metacritic,
+                  released: gameDetail.released,
+                  background_image: gameDetail.background_image,
+                },
+              });
             }
           }}
         >
@@ -175,11 +172,26 @@ const GameDetailsForm = ({ gameDetail }) => {
                 <br />
                 <Field style={fieldStyle} name="platform" as="select">
                   <option value="">Select a platform</option>
-                  {platforms.map((platform) => (
-                    <option key={platform.name} value={platform.name}>
-                      {platform.name}
-                    </option>
-                  ))}
+                  {!removeGameDetails ? (
+                    <>
+                      {platforms.map((platform) => (
+                        <option key={platform.name} value={platform.name}>
+                          {platform.name}
+                        </option>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      {gameDetail.platforms.map((platform) => (
+                        <option
+                          key={platform.platform.name}
+                          value={platform.platform.name}
+                        >
+                          {platform.platform.name}
+                        </option>
+                      ))}
+                    </>
+                  )}
                 </Field>
                 <ErrorMessage name="platform"></ErrorMessage>
                 <br />
@@ -187,11 +199,23 @@ const GameDetailsForm = ({ gameDetail }) => {
                 <br />
                 <Field style={fieldStyle} name="genre" as="select">
                   <option value="">Select a Genre</option>
-                  {genres.map((genre) => (
-                    <option key={genre.name} value={genre.name}>
-                      {genre.name}
-                    </option>
-                  ))}
+                  {!removeGameDetails ? (
+                    <>
+                      {genres.map((genre) => (
+                        <option key={genre.name} value={genre.name}>
+                          {genre.name}
+                        </option>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      {gameDetail.genres.map((genre) => (
+                        <option key={genre.name} value={genre.name}>
+                          {genre.name}
+                        </option>
+                      ))}
+                    </>
+                  )}
                 </Field>
                 <ErrorMessage name="genre"></ErrorMessage>
                 <br />
@@ -199,11 +223,23 @@ const GameDetailsForm = ({ gameDetail }) => {
                 <br />
                 <Field style={fieldStyle} name="developer" as="select">
                   <option value="">Select a Developer</option>
-                  {developers.map((developer) => (
-                    <option key={developer.name} value={developer.name}>
-                      {developer.name}
-                    </option>
-                  ))}
+                  {!removeGameDetails ? (
+                    <>
+                      {developers.map((developer) => (
+                        <option key={developer.name} value={developer.name}>
+                          {developer.name}
+                        </option>
+                      ))}
+                    </>
+                  ) : (
+                    <>
+                      {gameDetail.my_developers.map((developer) => (
+                        <option key={developer.name} value={developer.name}>
+                          {developer.name}
+                        </option>
+                      ))}
+                    </>
+                  )}
                 </Field>
                 <ErrorMessage name="developer"></ErrorMessage>
               </div>
