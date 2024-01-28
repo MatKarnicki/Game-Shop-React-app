@@ -61,7 +61,48 @@ const gamePageReducer = (state, action) => {
         };
       });
     }
-
+    case "ADD_PLATFORM_TO_GAME": {
+      return state.map((game) => {
+        if (game.id === action.payload.gameid) {
+          return {
+            ...game,
+            platforms: [
+              ...game.platforms,
+              { platform: { name: action.payload.platform } },
+            ],
+          };
+        }
+        return game;
+      });
+    }
+    case "ADD_GENRE_TO_GAME": {
+      return state.map((game) => {
+        if (game.id === action.payload.gameid) {
+          return {
+            ...game,
+            genres: [...game.genres, { name: action.payload.genre }],
+          };
+        }
+        return game;
+      });
+    }
+    case "ADD_DEVELOPER_TO_GAME": {
+      return state.map((game) => {
+        if (game.id === action.payload.gameid) {
+          return {
+            ...game,
+            my_developers: [
+              ...game.my_developers,
+              {
+                id: action.payload.developerid,
+                name: action.payload.developer,
+              },
+            ],
+          };
+        }
+        return game;
+      });
+    }
     default:
       return state;
   }
