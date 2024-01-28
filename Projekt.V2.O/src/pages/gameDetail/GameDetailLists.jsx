@@ -1,4 +1,6 @@
 import Link from "next/link";
+import ModifyGameButton from "../buttons/ModifyGameButton";
+
 export default function GameDetailLists({ gameDetail }) {
   return (
     <div style={{ display: "flex" }}>
@@ -30,6 +32,7 @@ export default function GameDetailLists({ gameDetail }) {
           </div>
         )}
       </ul>
+      <ModifyGameButton />
     </div>
   );
 }

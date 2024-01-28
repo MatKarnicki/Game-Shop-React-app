@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import getRandomDate from "./getRandomDate";
+import getRandomDate from "../functions/getRandomDate";
 export default function DeveloperElement({ developer }) {
-  const width = 400;
+  const width = 500;
   return (
     <>
       <h2>{developer?.name}</h2>

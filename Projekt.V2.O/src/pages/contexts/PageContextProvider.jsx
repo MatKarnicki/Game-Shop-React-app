@@ -1,7 +1,7 @@
 import { useReducer, createContext, useEffect, useRef } from "react";
-import gamePageReducer from "./GamePageReducer";
-import gameAssignment from "./gameAssignment";
-import developerPageReducer from "./DevolperPageReducer";
+import gamePageReducer from "../reducers/GamePageReducer";
+import gameAssignment from "../functions/gameAssignment";
+import developerPageReducer from "../reducers/DevolperPageReducer";
 
 export const PageContext = createContext(null);
 const PageContextProvider = ({ children }) => {

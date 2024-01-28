@@ -1,5 +1,5 @@
 import React from "react";
-import GameElement from "../GameElement";
+import GameElement from "../game/GameElement";
 
 const gridStyle = {
   listStyle: "none",
@@ -14,7 +14,7 @@ const GameGrid = ({ games }) => {
       <ul style={gridStyle}>
         {games?.map((game) => (
           <li key={game.id}>
-            <GameElement game={game} />
+            <GameElement game={game} width={300} />
           </li>
         ))}
       </ul>

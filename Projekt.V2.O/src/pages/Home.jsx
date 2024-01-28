@@ -1,6 +1,6 @@
 import { useState } from "react";
-import DeveloperList from "./DeveloperList";
-import GameList from "./GameList";
+import DeveloperList from "./developer/DeveloperList";
+import GameList from "./game/GameList";
 
 const Home = () => {
   const [showDeveloperPage, setShowDeveloperPage] = useState(false);

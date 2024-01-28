@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import Link from "next/link";
-import { PageContext } from "../PageContextProvider";
+import { PageContext } from "../contexts/PageContextProvider";
 import GameGrid from "./GameGrid";
 
 const DeveloperDetails = () => {

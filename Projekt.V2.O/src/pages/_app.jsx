@@ -1,21 +1,24 @@
 import React from "react";
-import PageContextProvider from "./PageContextProvider";
+import PageContextProvider from "./contexts/PageContextProvider";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "/public/logo.jpg";
 import "./style.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import GameFormContextProvider from "./contexts/GameFormContextProvider";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
     <PageContextProvider>
-      <Link href="/Home">
-        <Image src={logo} alt="GameVault" width={150} height={150}></Image>
-      </Link>
-      <br />
-      <Component {...pageProps} />
-      <ToastContainer />
+      <GameFormContextProvider>
+        <Link href="/Home">
+          <Image src={logo} alt="GameVault" width={250} height={150}></Image>
+        </Link>
+        <br />
+        <Component {...pageProps} />
+        <ToastContainer />
+      </GameFormContextProvider>
     </PageContextProvider>
   );
 };

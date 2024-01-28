@@ -1,9 +1,10 @@
 import { Field, Formik, ErrorMessage } from "formik";
 import { date, number, object, string } from "yup";
-import { useContext, useState } from "react";
-import { PageContext } from "./PageContextProvider";
+import { useContext } from "react";
+import { PageContext } from "../contexts/PageContextProvider";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { GameFormContext } from "../contexts/GameFormContextProvider";
 
 const GameSchema = object().shape({
   name: string()
@@ -44,7 +45,7 @@ const modifyGameSchema = object().shape({
   newbackground_image: string().url().nullable(),
 });
 const GameForm = () => {
-  const [modifyGame, setModifyGame] = useState(false);
+  const { setModifyGame, modifyGame } = useContext(GameFormContext);
   const { gamesDispatch, developersDispatch, developers, games } =
     useContext(PageContext);
   const genres = [

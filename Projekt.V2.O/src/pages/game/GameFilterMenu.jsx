@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { PageContext } from "./PageContextProvider";
+import { PageContext } from "../contexts/PageContextProvider";
 
 const GameFilterMenu = ({ setGameList }) => {
   const { sortGames } = useContext(PageContext);

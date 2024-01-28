@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-export default function GameElement({ game }) {
-  const width = 400;
+export default function GameElement({ game, width }) {
   return (
     <>
       <h2>{game?.name}</h2>
