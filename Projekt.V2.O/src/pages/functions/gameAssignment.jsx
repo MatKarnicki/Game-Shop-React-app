@@ -1,5 +1,7 @@
+import getRandomDate from "../functions/getRandomDate";
 const gameAssignment = (games, developers) => {
   developers?.map((developer) => {
+    developer.formed_in = getRandomDate();
     developer.my_games_count = 0;
     developer.my_games = [];
   });

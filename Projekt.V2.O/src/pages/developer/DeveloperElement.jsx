@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import getRandomDate from "../functions/getRandomDate";
 export default function DeveloperElement({ developer }) {
   const width = 500;
   return (
@@ -27,9 +26,7 @@ export default function DeveloperElement({ developer }) {
         </h3>
         <h3>
           Formed in:
-          {developer.formed_in
-            ? developer.formed_in
-            : (developer.formed_in = getRandomDate())}
+          {developer.formed_in}
         </h3>
       </div>
     </>

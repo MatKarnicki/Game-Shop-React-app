@@ -99,6 +99,9 @@ const DeveloperForm = () => {
               toast.error("This developer already exists");
               return;
             }
+            modifyDeveloper
+              ? toast.success("Succesfully modified developer")
+              : toast.success("Succesfully added developer");
             const developerid = parseInt(
               Math.floor(Math.random() * 1000) * games.length
             );

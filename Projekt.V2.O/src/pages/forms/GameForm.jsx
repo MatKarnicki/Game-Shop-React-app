@@ -151,6 +151,9 @@ const GameForm = () => {
             const gameid = parseInt(
               Math.floor(Math.random() * 1000) * games.length
             );
+            modifyGame
+              ? toast.success("Succesfully modified game")
+              : toast.success("Succesfully added game");
             if (modifyGame) {
               gamesDispatch({
                 type: "MODIFY_GAME",

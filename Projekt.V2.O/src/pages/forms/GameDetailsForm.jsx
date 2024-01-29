@@ -164,6 +164,9 @@ const GameDetailsForm = ({ gameDetail }) => {
                   });
                 }
               } else {
+                const developerToRemove = gameDetail.my_developers.filter(
+                  (developer) => developer.id === developerid
+                );
                 gamesDispatch({
                   type: "REMOVE_DEVELOPER_FROM_GAME",
                   payload: {
@@ -174,7 +177,7 @@ const GameDetailsForm = ({ gameDetail }) => {
                 developersDispatch({
                   type: "REMOVE_GAME_FROM_DEVELOPER",
                   payload: {
-                    developers: gameDetail.my_developers,
+                    developers: developerToRemove,
                     gameid: gameDetail.id,
                   },
                 });
