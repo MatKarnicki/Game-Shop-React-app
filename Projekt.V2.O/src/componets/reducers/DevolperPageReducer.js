@@ -1,4 +1,4 @@
-const developerPageReducer = (state, action) => {
+export default function DeveloperPageReducer(state, action) {
   switch (action.type) {
     case "SET_DEVELOPERS_LIST":
       return action.payload;
@@ -95,6 +95,4 @@ const developerPageReducer = (state, action) => {
     default:
       return state;
   }
-};
-
-export default developerPageReducer;
+}

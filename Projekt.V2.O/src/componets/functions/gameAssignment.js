@@ -1,5 +1,5 @@
-import getRandomDate from "../functions/getRandomDate";
-const gameAssignment = (games, developers) => {
+import getRandomDate from "./getRandomDate";
+export default function gameAssignment(games, developers) {
   developers?.map((developer) => {
     developer.formed_in = getRandomDate();
     developer.my_games_count = 0;
@@ -19,5 +19,4 @@ const gameAssignment = (games, developers) => {
     ];
     return game;
   });
-};
-export default gameAssignment;
+}

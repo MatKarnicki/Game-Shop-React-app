@@ -22,11 +22,11 @@ export default function DeveloperElement({ developer }) {
         }}
       >
         <h3 style={{ marginRight: "10px" }}>
-          Games Count: {developer.my_games_count || 0}
+          Games Count: {developer?.my_games_count || 0}
         </h3>
         <h3>
           Formed in:
-          {developer.formed_in}
+          {developer?.formed_in}
         </h3>
       </div>
     </>

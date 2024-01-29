@@ -1,4 +1,4 @@
-const gamePageReducer = (state, action) => {
+export default function GamePageReducer(state, action) {
   switch (action.type) {
     case "SET_GAME_LIST":
       return action.payload;
@@ -32,7 +32,10 @@ const gamePageReducer = (state, action) => {
           platforms: [{ platform: { name: action.payload.platform } }],
           genres: [{ name: action.payload.genre }],
           my_developers: [
-            { id: action.payload.developerid, name: action.payload.developer },
+            {
+              id: action.payload.developerid,
+              name: action.payload.developer,
+            },
           ],
         },
       ];
@@ -159,6 +162,4 @@ const gamePageReducer = (state, action) => {
     default:
       return state;
   }
-};
-
-export default gamePageReducer;
+}

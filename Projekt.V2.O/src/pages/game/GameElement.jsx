@@ -25,7 +25,7 @@ export default function GameElement({ game, width }) {
           Score:
           {game?.metacritic === null
             ? (game.metacritic = Math.floor(Math.random() * (100 - 2) + 1))
-            : game.metacritic}
+            : game?.metacritic}
         </h3>
       </div>
     </>
