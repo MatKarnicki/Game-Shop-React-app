@@ -10,7 +10,8 @@ const DeveloperSchema = object().shape({
   name: string()
     .min(1, "Developer name is too short")
     .max(250, "Developer name is too long")
-    .required("Developer name is required"),
+    .required("Developer name is required")
+    .trim(),
   formed_in: date()
     .required("Date is required")
     .min("1960-01-01", "Invalid date")
@@ -22,11 +23,13 @@ const modifyDeveloperSchema = object().shape({
   name: string()
     .min(1, "Developer name is too short")
     .max(250, "Developer name is too long")
-    .required("Developer name is required"),
+    .required("Developer name is required")
+    .trim(),
   newname: string()
     .min(1, "Developer name is too short")
     .max(250, "Developer name is too long")
-    .nullable(),
+    .nullable()
+    .trim(),
   newformed_in: date()
     .nullable()
     .min("1960-01-01", "Invalid date")
@@ -110,17 +113,17 @@ const DeveloperForm = () => {
                 type: "MODIFY_DEVELOPER",
                 payload: {
                   id: developerid,
-                  name: values.name,
-                  newname: values.newname,
+                  name: values.name.trim(),
+                  newname: values.newname.trim(),
                   newformed_in: values.newformed_in,
-                  newbackground_image: values.newbackground_image,
+                  newbackground_image: values.newbackground_image.trim(),
                 },
               });
               gamesDispatch({
                 type: "MODIFY_GAMES_DEVELOPER_INFO",
                 payload: {
-                  name: values.name,
-                  newname: values.newname,
+                  name: values.name.trim(),
+                  newname: values.newname.trim(),
                 },
               });
             } else {
@@ -128,9 +131,9 @@ const DeveloperForm = () => {
                 type: "ADD_DEVELOPER",
                 payload: {
                   id: developerid,
-                  name: values.name,
+                  name: values.name.trim(),
                   formed_in: values.formed_in,
-                  background_image: values.background_image,
+                  background_image: values.background_image.trim(),
                 },
               });
             }

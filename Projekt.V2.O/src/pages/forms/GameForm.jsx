@@ -10,7 +10,8 @@ const GameSchema = object().shape({
   name: string()
     .min(1, "Game title is too short")
     .max(250, "Game title is too long")
-    .required("Game title is required"),
+    .required("Game title is required")
+    .trim(),
   metacritic: number()
     .required("Game Score is required")
     .min(1, "Score is too low")
@@ -21,7 +22,7 @@ const GameSchema = object().shape({
     .min("1960-01-01", "Invalid date")
     .max(new Date(), "Date can't be in the future"),
 
-  background_image: string().url().required("Please enter image url"),
+  background_image: string().url().required("Please enter image url").trim(),
   platform: string().ensure().required("Please select a platform"),
   genre: string().ensure().required("Please select a genre"),
   developer: string().ensure().required("Please select a developer"),
@@ -30,11 +31,13 @@ const modifyGameSchema = object().shape({
   name: string()
     .min(1, "Game title is too short")
     .max(250, "Game title is too long")
-    .required("Game title is required"),
+    .required("Game title is required")
+    .trim(),
   newname: string()
     .min(1, "Game title is too short")
     .max(250, "Game title is too long")
-    .nullable(),
+    .nullable()
+    .trim(),
   newscore: number()
     .nullable()
     .min(1, "Score is too low")
@@ -44,7 +47,7 @@ const modifyGameSchema = object().shape({
     .nullable()
     .min("1960-01-01", "Invalid date")
     .max(new Date(), "Date can't be in the future"),
-  newbackground_image: string().url().nullable(),
+  newbackground_image: string().url().nullable().trim(),
 });
 const GameForm = () => {
   const { setModifyGame, modifyGame } = useContext(GameFormContext);
@@ -162,22 +165,22 @@ const GameForm = () => {
                 type: "MODIFY_GAME",
                 payload: {
                   id: gameid,
-                  name: values.name,
-                  newname: values.newname,
+                  name: values.name.trim(),
+                  newname: values.newname.trim(),
                   newscore: values.newscore,
                   newreleased: values.newreleased,
-                  newbackground_image: values.newbackground_image,
+                  newbackground_image: values.newbackground_image.trim(),
                 },
               });
               developersDispatch({
                 type: "MODIFY_DEVELOPERS_GAME_INFO",
                 payload: {
                   id: gameid,
-                  name: values.name,
-                  newname: values.newname,
+                  name: values.name.trim(),
+                  newname: values.newname.trim(),
                   newscore: values.newscore,
                   newreleased: values.newreleased,
-                  newbackground_image: values.newbackground_image,
+                  newbackground_image: values.newbackground_image.trim(),
                 },
               });
             } else {
@@ -185,10 +188,10 @@ const GameForm = () => {
                 type: "ADD_GAME",
                 payload: {
                   id: gameid,
-                  name: values.name,
+                  name: values.name.trim(),
                   metacritic: values.metacritic,
                   released: values.released,
-                  background_image: values.background_image,
+                  background_image: values.background_image.trim(),
                   platform: values.platform,
                   genre: values.genre,
                   developer: values.developer,
@@ -204,10 +207,10 @@ const GameForm = () => {
                     (developer) => developer.name === values.developer
                   ).id,
                   id: gameid,
-                  name: values.name,
+                  name: values.name.trim(),
                   metacritic: values.metacritic,
                   released: values.released,
-                  background_image: values.background_image,
+                  background_image: values.background_image.trim(),
                 },
               });
             }
