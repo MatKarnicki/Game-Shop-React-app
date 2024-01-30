@@ -69,9 +69,14 @@ const GameDetail = () => {
           Dolor quisquam in odio vero laborum culpa rerum ea adipisci officia
           magni ratione, assumenda aspernatur tempora!
         </h4>
-        <Link href="/Home">
+        <Link href="/">
           <button
-            style={{ color: "white", background: "red", marginBottom: "50px" }}
+            style={{
+              color: "white",
+              background: "red",
+              marginBottom: "50px",
+              cursor: "pointer",
+            }}
             onClick={() => handleGameDeletion()}
           >
             Delete Game Forever

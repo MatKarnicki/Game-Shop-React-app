@@ -56,13 +56,13 @@ const DeveloperForm = () => {
         }}
       >
         <button
-          style={{ width: "250px", height: 50 }}
+          style={{ width: "250px", height: 50, cursor: "pointer" }}
           onClick={() => setModifyDeveloper(false)}
         >
           Add Developer
         </button>
         <button
-          style={{ width: "250px" }}
+          style={{ width: "250px", height: 50, cursor: "pointer" }}
           onClick={() => setModifyDeveloper(true)}
         >
           Modify Developer
@@ -198,7 +198,9 @@ const DeveloperForm = () => {
                 }
               ></ErrorMessage>
               <br />
-              <button type="submit">Submit</button>
+              <button style={{ cursor: "pointer" }} type="submit">
+                Submit
+              </button>
             </form>
           )}
         </Formik>

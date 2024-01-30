@@ -67,7 +67,7 @@ const DeveloperDetails = () => {
         >
           {developerDetail?.my_games_count !== 0 && (
             <button
-              style={{ height: "30px", marginTop: "70px" }}
+              style={{ height: "30px", marginTop: "70px", cursor: "pointer" }}
               onClick={() => handleDeveloperGames()}
             >
               {showGames
@@ -75,9 +75,10 @@ const DeveloperDetails = () => {
                 : "Expand the list of games"}
             </button>
           )}
-          <Link href="/Home">
+          <Link href="/">
             <button
               style={{
+                cursor: "pointer",
                 marginTop: "70px",
                 height: "30px",
                 color: "white",

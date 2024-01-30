@@ -106,12 +106,15 @@ const GameForm = () => {
         }}
       >
         <button
-          style={{ width: "250px", height: 50 }}
+          style={{ width: "250px", height: 50, cursor: "pointer" }}
           onClick={() => setModifyGame(false)}
         >
           Add game
         </button>
-        <button style={{ width: "250px" }} onClick={() => setModifyGame(true)}>
+        <button
+          style={{ width: "250px", height: 50, cursor: "pointer" }}
+          onClick={() => setModifyGame(true)}
+        >
           Modify Game
         </button>
       </div>
@@ -318,7 +321,9 @@ const GameForm = () => {
                 </div>
               )}
               <br />
-              <button type="submit">Submit</button>
+              <button style={{ cursor: "pointer" }} type="submit">
+                Submit
+              </button>
             </form>
           )}
         </Formik>

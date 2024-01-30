@@ -14,7 +14,7 @@ const MyApp = ({ Component, pageProps }) => {
     <PageContextProvider>
       <DeveloperFormContextProvider>
         <GameFormContextProvider>
-          <Link href="/Home">
+          <Link href="/">
             <Image src={logo} alt="GameVault" width={250} height={150}></Image>
           </Link>
           <br />

@@ -69,13 +69,13 @@ const GameDetailsForm = ({ gameDetail }) => {
         }}
       >
         <button
-          style={{ width: "250px", height: 50 }}
+          style={{ width: "250px", height: 50, cursor: "pointer" }}
           onClick={() => setRemoveGameDetails(false)}
         >
           Add game details
         </button>
         <button
-          style={{ width: "250px" }}
+          style={{ width: "250px", height: 50, cursor: "pointer" }}
           onClick={() => setRemoveGameDetails(true)}
         >
           Remove game details
@@ -265,7 +265,9 @@ const GameDetailsForm = ({ gameDetail }) => {
               </div>
 
               <br />
-              <button type="submit">Submit</button>
+              <button style={{ cursor: "pointer" }} type="submit">
+                Submit
+              </button>
             </form>
           )}
         </Formik>

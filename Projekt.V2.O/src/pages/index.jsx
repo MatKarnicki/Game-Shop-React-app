@@ -17,13 +17,13 @@ const Home = () => {
         }}
       >
         <button
-          style={{ width: "250px", height: 50 }}
+          style={{ width: "250px", cursor: "pointer", height: 50 }}
           onClick={() => setShowDeveloperPage(false)}
         >
           Game List
         </button>
         <button
-          style={{ width: "250px" }}
+          style={{ width: "250px", cursor: "pointer", height: 50 }}
           onClick={() => setShowDeveloperPage(true)}
         >
           Developer List

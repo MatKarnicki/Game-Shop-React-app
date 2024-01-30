@@ -6,7 +6,7 @@ const GameFilterMenu = ({ setGameList }) => {
 
   const createSortButton = (label, sortingFunction) => (
     <button
-      style={{ marginBottom: "0.5em", width: "150px" }}
+      style={{ marginBottom: "0.5em", width: "150px", cursor: "pointer" }}
       onClick={() => {
         setGameList(sortGames(sortingFunction));
       }}
